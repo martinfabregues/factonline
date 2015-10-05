@@ -19,3 +19,4 @@ Route::get('/', function()
 Route::resource('puntosventa', 'PuntoVentaController');
 Route::resource('clientes', 'ClienteController');
 Route::resource('proveedores', 'ProveedorController');
+Route::resource('facturas', 'FacturaController');
