@@ -9,7 +9,10 @@ class FacturaController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+            $facturas = Factura::all();
+            
+            return View::make('pages.facturas.list')
+                    ->with('facturas', $facturas);
 	}
 
 
@@ -20,7 +23,18 @@ class FacturaController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+            $tiposdocumento = TipoDocumento::lists('tipo_documento', 'id');
+            $condicionesiva = CondicionIva::lists('condicion_iva', 'id');
+            $tiposcomprobante = TipoComprobante::lists('tipo_comprobante', 'id');
+            $conceptos = Concepto::lists('concepto', 'id');
+            $formaspago = FormaPago::lists('forma_pago', 'id');
+            
+            return View::make('pages.facturas.create')
+                    ->with('tiposdocumento', $tiposdocumento)
+                    ->with('condicionesiva', $condicionesiva)
+                    ->with('tiposcomprobante', $tiposcomprobante)
+                    ->with('conceptos', $conceptos)
+                    ->with('formaspago', $formaspago);
 	}
 
 
