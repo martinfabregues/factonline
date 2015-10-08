@@ -28,13 +28,15 @@ class FacturaController extends \BaseController {
             $tiposcomprobante = TipoComprobante::lists('tipo_comprobante', 'id');
             $conceptos = Concepto::lists('concepto', 'id');
             $formaspago = FormaPago::lists('forma_pago', 'id');
+            $alicuotas = AlicuotaIva::lists('alicuota', 'id');
             
             return View::make('pages.facturas.create')
                     ->with('tiposdocumento', $tiposdocumento)
                     ->with('condicionesiva', $condicionesiva)
                     ->with('tiposcomprobante', $tiposcomprobante)
                     ->with('conceptos', $conceptos)
-                    ->with('formaspago', $formaspago);
+                    ->with('formaspago', $formaspago)
+                    ->with('alicuotas', $alicuotas);
 	}
 
 
@@ -45,7 +47,11 @@ class FacturaController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+            
+            
+		
+                
+                
 	}
 
 
