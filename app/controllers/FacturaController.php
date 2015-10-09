@@ -76,6 +76,7 @@ class FacturaController extends \BaseController {
                         $Concepto = Concepto::findOrFail(Input::get('concepto_id'));
                         $DocTipo = TipoDocumento::findOrFail(Input::get('tipodocumento_id'));
                         $DocNro = Input::get('documento');
+                        $CbteFch = date('Ymd');
                         
                         $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
                         $prox_nro = ($ult_nro->FECompUltimoAutorizadoResult->CbteNro) + 1;

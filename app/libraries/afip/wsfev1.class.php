@@ -236,7 +236,7 @@ class WSFEV1 {
                          'DocNro' => $DocNro,
                          'CbteDesde' => $CbteDesde,
                          'CbteHasta' => $CbteHasta,
-                         'CbteFch' => date('Ymd'),
+                         'CbteFch' => $CbteFch,
                          'ImpTotal' => round($ImpTotal, 2),
                          'ImpTotConc' => round($ImpTotConc, 2),
                          'ImpNeto' => round($ImpNeto, 2),
@@ -248,10 +248,10 @@ class WSFEV1 {
                          'FchVtoPago' => $FchVtoPago,
                          'MonId' => $MonId,
                          'MonCotiz' => $MonCotiz,
-						 'CbtesAsoc' => $CbtesAsoc,
+			 'CbtesAsoc' => $CbtesAsoc,
                          'Tributos' => $Tributos,
                          'Iva' => $Iva,
-						 'Opcionales' => $Opcionales
+			 'Opcionales' => $Opcionales
                      )
                  )
              )
