@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Body><loginCmsResponse xmlns="http://wsaa.view.sua.dvadac.desein.afip.gov"><loginCmsReturn>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;loginTicketResponse version=&quot;1&quot;&gt;
+    &lt;header&gt;
+        &lt;source&gt;CN=wsaahomo, O=AFIP, C=AR, SERIALNUMBER=CUIT 33693450239&lt;/source&gt;
+        &lt;destination&gt;C=ar, O=desarrollojb, SERIALNUMBER=CUIT 20107618725, CN=desarrollo&lt;/destination&gt;
+        &lt;uniqueId&gt;1273643943&lt;/uniqueId&gt;
+        &lt;generationTime&gt;2015-10-09T11:12:51.056-03:00&lt;/generationTime&gt;
+        &lt;expirationTime&gt;2015-10-09T23:12:51.056-03:00&lt;/expirationTime&gt;
+    &lt;/header&gt;
+    &lt;credentials&gt;
+        &lt;token&gt;PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pgo8c3NvIHZlcnNpb249IjIuMCI+CiAgICA8aWQgdW5pcXVlX2lkPSIzNTEzNzUzMjI5IiBzcmM9IkNOPXdzYWFob21vLCBPPUFGSVAsIEM9QVIsIFNFUklBTE5VTUJFUj1DVUlUIDMzNjkzNDUwMjM5IiBnZW5fdGltZT0iMTQ0NDM5OTkxMSIgZXhwX3RpbWU9IjE0NDQ0NDMxNzEiIGRzdD0iQ049d3NmZSwgTz1BRklQLCBDPUFSIi8+CiAgICA8b3BlcmF0aW9uIHZhbHVlPSJncmFudGVkIiB0eXBlPSJsb2dpbiI+CiAgICAgICAgPGxvZ2luIHVpZD0iQz1hciwgTz1kZXNhcnJvbGxvamIsIFNFUklBTE5VTUJFUj1DVUlUIDIwMTA3NjE4NzI1LCBDTj1kZXNhcnJvbGxvIiBzZXJ2aWNlPSJ3c2ZlIiByZWdtZXRob2Q9IjIyIiBlbnRpdHk9IjMzNjkzNDUwMjM5IiBhdXRobWV0aG9kPSJjbXMiPgogICAgICAgICAgICA8cmVsYXRpb25zPgogICAgICAgICAgICAgICAgPHJlbGF0aW9uIHJlbHR5cGU9IjQiIGtleT0iMjAxMDc2MTg3MjUiLz4KICAgICAgICAgICAgPC9yZWxhdGlvbnM+CiAgICAgICAgPC9sb2dpbj4KICAgIDwvb3BlcmF0aW9uPgo8L3Nzbz4KCg==&lt;/token&gt;
+        &lt;sign&gt;l1p+Zs5f1iwjvktRQ9SObYBoi+a9YRpXbYpka3VszgvryCYFDG221tjX08H5tst9eDjsBMZ6E6ZdSbzt3VtgoR/EgpazDhnZsX4hWbjwXXn2RPI8dmUGBijrtpU69jSpohu2KPhfs4O73qejonrivk8gCkFU6Q5CGLG82Rp4f18=&lt;/sign&gt;
+    &lt;/credentials&gt;
+&lt;/loginTicketResponse&gt;
+
+</loginCmsReturn></loginCmsResponse></soapenv:Body></soapenv:Envelope>

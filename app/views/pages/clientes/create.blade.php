@@ -17,8 +17,12 @@
     <div class="panel-body">
 	
 	<!-- if there are creation errors, they will show here -->
-{{ HTML::ul($errors->all()) }}
-
+<!--{{ HTML::ul($errors->all()) }}-->
+    <ul>
+   @foreach($errors->all() as $error)
+   <div class="alert alert-danger fade in" role="alert">{{ $error }}</div>
+   @endforeach
+    </ul>
 {{ Form::open(array('url' => 'clientes')) }}
 
     <div class="form-group">

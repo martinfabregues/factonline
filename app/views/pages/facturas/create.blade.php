@@ -72,6 +72,14 @@
             {{ Form::text('fecha', Input::old('fecha'), array('id' => 'datepicker', 'class' => 'form-control')) }}
         </div>
       </div>
+        
+      <div class="col-sm-2">  
+        <div class="form-group">
+            {{ Form::label('puntoventa_id', 'Punto de Venta') }}
+            {{ Form::select('puntoventa_id', $puntosventa, null, array('class' => 'form-control', 'style' => '' )) }}
+        </div>
+      </div>
+        
       <div class="col-sm-2">  
         <div class="form-group">
             {{ Form::label('tipocomprobante_id', 'Tipo Comprobante') }}
@@ -214,7 +222,6 @@
 <div class="row">
     <div class="col-sm-2">
 {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
-{{ Form::submit('Imprimir', array('class' => 'btn btn-default')) }}
     </div>
 </div>
 {{ Form::close() }}
