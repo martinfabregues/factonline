@@ -12,4 +12,9 @@ class Factura extends Eloquent {
 	protected $guarded = array('id');	
 	
 	public $timestamps = false;
+        
+        public function TipoComprobante()
+        {
+            return $this->belongsTo('TipoComprobante', 'tipocomprobante_id', 'id');
+        }
 }

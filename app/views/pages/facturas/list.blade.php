@@ -26,7 +26,7 @@
         <tr>
             <td>{{ $value->fecha }}</td>
             <td>{{ $value->numerofactura }}</td>
-            <td>{{ $value->tipocomprobante_id }}</td>
+            <td>{{ $value->TipoComprobante->tipo_comprobante }}</td>
             <td>{{ $value->cliente_id }}</td>
             <td>{{ $value->total }}</td>
             <td>{{ $value->cae }}</td>

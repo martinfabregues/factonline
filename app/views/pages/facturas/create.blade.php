@@ -140,7 +140,7 @@
                     {{ Form::text('producto_id', Input::old('producto_id'), array('class' => 'form-control')) }}
 		</td>
 		<td>
-                    {{ Form::text('producto_nombre', Input::old('producto_nombre'), array('class' => 'form-control')) }}
+                    {{ Form::text('producto_nombre[]', Input::old('producto_nombre[]'), array('class' => 'form-control')) }}
 		</td>
 		<td>
                     {{ Form::text('importe', Input::old('importe'), array('class' => 'form-control')) }}
@@ -232,7 +232,7 @@
 
 @section('scripts')
 <script>
- $(document).ready(function(){
+  $(document).ready(function(){
       var i=1;
      $("#add_row").click(function(){
       $('#addr'+i).html("<td>\n\
@@ -256,7 +256,6 @@
                         <td>\n\
                             <input  name='total' type='text' placeholder='Cant.'  class='form-control input-md'>\n\
                         </td>");
-
       $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
       i++; 
   });
@@ -266,7 +265,6 @@
 		 i--;
 		 }
 	 });
-
 });
 </script>
 @endsection

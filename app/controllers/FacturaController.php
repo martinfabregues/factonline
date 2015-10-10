@@ -51,64 +51,110 @@ class FacturaController extends \BaseController {
 	public function store()
 	{
             
-            $rules = array(
-			'documento' => 'required|numeric',
-			'fecha' => 'required',
-			'subtotal' => 'required|numeric',
-			'iva' => 'required|numeric',
-			'tributos' => 'required|numeric',			
-			'total' => 'required|numeric'
-		);
-		
-		$validator = Validator::make(Input::all(), $rules);
-		
-		if($validator->fails()){
-			return Redirect::to('facturas/create')
-			->withErrors($validator)
-			->withInput(Input::except('password'));
-		} else{
-			
-			$wsaa = new Afip\WSAA();
-                        $wsfe = new Afip\WSFEV1();
-                        
-                        $PtoVta = PuntoVenta::findOrFail(Input::get('puntoventa_id'));
-                        $CbteTipo = TipoComprobante::findOrFail(Input::get('tipocomprobante_id'));
-                        $Concepto = Concepto::findOrFail(Input::get('concepto_id'));
-                        $DocTipo = TipoDocumento::findOrFail(Input::get('tipodocumento_id'));
-                        $DocNro = Input::get('documento');
-                        $CbteFch = date('Ymd');
-                        
-                        $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
-                        $prox_nro = ($ult_nro->FECompUltimoAutorizadoResult->CbteNro) + 1;
-                        
-                        $response = $wsfe->CAESolicitar(1, $PtoVta->codigoafip, $CbteTipo->codigoafip, $Concepto->codigoafip, 
-                                $DocTipo->codigoafip, $DocNro, $prox_nro, $prox_nro, $CbteFch, 
-                                $ImpTotal, $ImpTotConc, $ImpNeto, $ImpOpEx, $ImpTrib, $ImpIVA, $FchServDesde, $FchServHasta, $FchVtoPago, $MonId, $MonCotiz, $CbtesAsoc, $Tributos, $Iva, $Opcionales);
-                    
-			$factura = new Factura;
-                        $factura->fecha = Input::get('fecha');
-                        $factura->numerofactura = Input::get('numerofactura');
-                        $factura->tipocomprobante_id = Input::get('tipocomprobante_id');
-                        $factura->concepto_id = Input::get('concepto_id');
-                        $factura->formapago_id = Input::get('formapago_id');
-                        $factura->cliente_id = Input::get('cliente_id');
-                        $factura->subtotal = Input::get('subtotal');
-                        $factura->iva = Input::get('iva');
-                        $factura->tributos = Input::get('tributos');
-                        $factura->total = Input::get('total');
-                        $factura->cae = $cae;
-                        $factura->cae_vencimiento = $cae_vencimiento;
-                        $factura->estado = $estado;
-                        $factura->observaciones = Input::get('observaciones');
-                        			
-			
-			$factura->save();
-									
-			Session::flash('message', 'Los datos se registraron correctamente.');
-			return Redirect::to('proveedores');
-		}
-            
+              $rules = array(
+            'documento' => 'required|numeric',
+            'fecha' => 'required',
+            'subtotal' => 'required|numeric',
+            'iva' => 'required|numeric',
+            'tributos' => 'required|numeric',           
+            'total' => 'required|numeric'
+        );
+       
+        $validator = Validator::make(Input::all(), $rules);
+       
+         $input = Input::all();
+        
+//         foreach($input as $key => $p)
+//         {
+//             
+//         }
+         
+         print_r($input);
+                            
+                            
+        
+        if($validator->fails()){
+            return Redirect::to('facturas/create')
+            ->withErrors($validator)
+            ->withInput(Input::except('password'));
+        } else{
            
+//            $wsaa = new Afip\WSAA();
+//            $wsfe = new Afip\WSFEV1();
+//                       
+//            $PtoVta = PuntoVenta::findOrFail(Input::get('puntoventa_id'));
+//            $CbteTipo = TipoComprobante::findOrFail(Input::get('tipocomprobante_id'));
+//            $Concepto = Concepto::findOrFail(Input::get('concepto_id'));
+//            $DocTipo = TipoDocumento::findOrFail(Input::get('tipodocumento_id'));
+//            $DocNro = Input::get('documento');
+//            $CbteFch = date('Ymd');
+//            $ImpTotal = Input::get('total');
+//            $ImpTotConc = 0;
+//            $ImpNeto = Input::get('subtotal');
+//            $ImpOpEx = 0;
+//            $ImpTrib = Input::get('tributos');
+//            $ImpIVA = Input::get('iva');
+//            $FchServDesde = '';
+//            $FchServHasta = '';
+//            $FchVtoPago = '';
+//            $MonId = 'PES';
+//            $MonCotiz = 1;
+//            $CbtesAsoc = null;
+//            $Tributos = null;
+//            $Iva = array('AlicIva' => array('Id' => 3, 'BaseImp' => $ImpNeto, 'Importe' => 0));
+//            $Opcionales = null;
+//                       
+//            $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
+//            $prox_nro = ($ult_nro->FECompUltimoAutorizadoResult->CbteNro) + 1;
+//                       
+//            $response = $wsfe->CAESolicitar(1, $PtoVta->codigoafip, $CbteTipo->codigoafip, $Concepto->codigoafip,
+//                        $DocTipo->codigoafip, $DocNro, $prox_nro, $prox_nro, $CbteFch,
+//                        $ImpTotal, $ImpTotConc, $ImpNeto, $ImpOpEx, $ImpTrib, $ImpIVA, $FchServDesde, $FchServHasta, $FchVtoPago,
+//                        $MonId, $MonCotiz, $CbtesAsoc, $Tributos, $Iva, $Opcionales);
+//
+//            $cae = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAE;                     
+//            $cae_vencimiento = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAEFchVto;
+//            $estado = $response->FECAESolicitarResult->FeCabResp->Resultado;              
+//                       
+//
+//            if($estado == "A")
+//            {                           
+//                $factura = new Factura;
+//                           
+//                $fecha_input = Input::get('fecha');
+//                $date = date("Y-m-d H:i:s", strtotime(str_replace('/','-', $fecha_input)));
+//                $factura->fecha = $date;
+//                           
+//                            $factura->numerofactura = $prox_nro;
+//                            $factura->tipocomprobante_id = Input::get('tipocomprobante_id');
+//                            $factura->concepto_id = Input::get('concepto_id');
+//                            $factura->formapago_id = Input::get('formapago_id');
+//                            $factura->puntoventa_id = Input::get('puntoventa_id');
+//                            $factura->cliente_id = 1;
+//                            $factura->subtotal = Input::get('subtotal');
+//                            $factura->iva = Input::get('iva');
+//                            $factura->tributos = Input::get('tributos');
+//                            $factura->total = Input::get('total');
+//                            $factura->cae = $cae;                                                     
+//                            $factura->estado = $estado;
+//                            $factura->observaciones = Input::get('observaciones');
+//                           
+//                            $date2 = DateTime::createFromFormat('Ymd', $cae_vencimiento);                           
+//                            $date2 = $date2->format('d/m/Y');
+//                            $date2 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$date2)));
+//                           
+//                            $factura->cae_vencimiento = $date2;
+//                    
+//                           
+//                            $factura->save();
+//
+//                           
+//                            
+//                            
+//                            Session::flash('message', 'Los datos se registraron correctamente.');
+//                            return Redirect::to('facturas');
+//                        }
+            }            
 
                
            
