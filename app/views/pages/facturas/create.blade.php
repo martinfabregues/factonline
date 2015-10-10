@@ -108,7 +108,7 @@
  <div class="panel-heading">Detalle del Comprobante</div>
  <div class="panel-body">
      
-    <table class="table table-bordered table-hover" id="tab_logic">
+<!--    <table class="table table-bordered table-hover" id="tab_logic">
 	<thead>
             <tr >
 		<th class="text-center">
@@ -137,32 +137,34 @@
 	<tbody>
             <tr id='addr0'>
 		<td>
-                    {{ Form::text('producto_id', Input::old('producto_id'), array('class' => 'form-control')) }}
+                    {{ Form::text('producto_id[]', Input::old('producto_id'), array('class' => 'form-control')) }}
 		</td>
 		<td>
                     {{ Form::text('producto_nombre[]', Input::old('producto_nombre[]'), array('class' => 'form-control')) }}
 		</td>
 		<td>
-                    {{ Form::text('importe', Input::old('importe'), array('class' => 'form-control')) }}
+                    {{ Form::text('importe[]', Input::old('importe'), array('class' => 'form-control')) }}
 		</td>
 		<td>
-                    {{ Form::text('cantidad', Input::old('cantidad'), array('class' => 'form-control')) }}
+                    {{ Form::text('cantidad[]', Input::old('cantidad'), array('class' => 'form-control')) }}
 		</td>
                 <td>
-                    {{ Form::select('alicuota_id', $alicuotas, null, array('class' => 'form-control', 'style' => '' )) }}
+                    {{ Form::select('alicuota_id[]', $alicuotas, null, array('class' => 'form-control', 'style' => '' )) }}
 		</td>
                 <td>
-                    {{ Form::text('iva', Input::old('iva'), array('class' => 'form-control')) }}
+                    {{ Form::text('alicuota_importe[]', Input::old('iva'), array('class' => 'form-control')) }}
 		</td>
                 <td>
-                    {{ Form::text('total', Input::old('total'), array('class' => 'form-control')) }}
+                    {{ Form::text('total[]', Input::old('total'), array('class' => 'form-control')) }}
 		</td>
             </tr>
                 <tr id='addr1'></tr>
 	</tbody>
     </table>
      
-     <a id="add_row" class="btn btn-default pull-left">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
+     <a id="add_row" class="btn btn-default pull-left">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>-->
+     
+    
  </div>
 </div>
 
@@ -233,39 +235,40 @@
 @section('scripts')
 <script>
   $(document).ready(function(){
-      var i=1;
-     $("#add_row").click(function(){
-      $('#addr'+i).html("<td>\n\
-                            <input name='producto_id' type='text' placeholder='Cód. Prod.' class='form-control input-md'/> \n\
-                        </td>\n\
-                        <td>\n\
-                            <input name='producto_nombre' type='text' placeholder='Producto' class='form-control input-md'  /> \n\
-                        </td>\n\
-                        <td>\n\
-                            <input  name='importe' type='text' placeholder='Importe'  class='form-control input-md'>\n\
-                        </td>\n\
-                        <td>\n\
-                            <input  name='cantidad' type='text' placeholder='Cant.'  class='form-control input-md'>\n\
-                        </td>\n\
-                        <td>\n\
-                            <input  name='alicuota_id' type='text' placeholder='Alic. IVA'  class='form-control input-md'>\n\
-                        </td>\n\
-                        <td>\n\
-                            <input  name='iva' type='text' placeholder='Imp. IVA'  class='form-control input-md'>\n\
-                        </td>\n\
-                        <td>\n\
-                            <input  name='total' type='text' placeholder='Cant.'  class='form-control input-md'>\n\
-                        </td>");
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-      i++; 
-  });
-     $("#delete_row").click(function(){
-    	 if(i>1){
-		 $("#addr"+(i-1)).html('');
-		 i--;
-		 }
-	 });
-});
+//      var i=1;
+//     $("#add_row").click(function(){
+//      $('#addr'+i).html("<td>\n\
+//                            <input name='producto_id[]' type='text' placeholder='Cód. Prod.' class='form-control input-md'/> \n\
+//                        </td>\n\
+//                        <td>\n\
+//                            <input name='producto_nombre[]' type='text' placeholder='Producto' class='form-control input-md'  /> \n\
+//                        </td>\n\
+//                        <td>\n\
+//                            <input  name='importe[]' type='text' placeholder='Importe'  class='form-control input-md'>\n\
+//                        </td>\n\
+//                        <td>\n\
+//                            <input  name='cantidad[]' type='text' placeholder='Cant.'  class='form-control input-md'>\n\
+//                        </td>\n\
+//                        <td>\n\
+//                            <input  name='alicuota_id[]' type='text' placeholder='Alic. IVA'  class='form-control input-md'>\n\
+//                        </td>\n\
+//                        <td>\n\
+//                            <input  name='alicuota_importe[]' type='text' placeholder='Imp. IVA'  class='form-control input-md'>\n\
+//                        </td>\n\
+//                        <td>\n\
+//                            <input  name='total[]' type='text' placeholder='Cant.'  class='form-control input-md'>\n\
+//                        </td>");
+//      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+//      i++; 
+//  });
+//     $("#delete_row").click(function(){
+//    	 if(i>1){
+//		 $("#addr"+(i-1)).html('');
+//		 i--;
+//		 }
+//	 });
+
+
 </script>
 @endsection
 
