@@ -8,4 +8,4 @@
 <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap-theme.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="{{asset('assets/selectize/css/selectize.bootstrap3.css')}}">

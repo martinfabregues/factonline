@@ -177,5 +177,24 @@ class ClienteController extends \BaseController {
 		//
 	}
 
+        
+        public function BuscarCliente()
+        {
+            $term = Input::get('term');
+	
+            $results = array();
+	
+            $queries = DB::table('clientes')
+		->where('nombres', 'LIKE', '%'.$term.'%')
+		->orWhere('apellido', 'LIKE', '%'.$term.'%')
+		->take(5)->get();
+	
+            foreach ($queries as $query)
+            {
+                $results[] = [ 'id' => $query->id, 'value' => $query->apellido.' '.$query->nombres ];
+            }
+            
+            return Response::json($results);
+        }
 
 }
