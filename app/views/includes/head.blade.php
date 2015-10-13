@@ -9,3 +9,4 @@
 <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap-theme.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.css" rel="stylesheet" />

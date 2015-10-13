@@ -57,6 +57,7 @@ class FacturaController extends \BaseController {
 	{
             
             $rules = array(
+            'cliente_id' => 'required|numeric',
             'documento' => 'required|numeric',    
             'fecha' => 'required',
             'subtotal' => 'required|numeric',
@@ -65,7 +66,7 @@ class FacturaController extends \BaseController {
             'total' => 'required|numeric'
         );
        
-  
+//        print_r(Input::all());
         $validator = Validator::make(Input::all(), $rules);
         $validator->each('producto_id', ['required|numeric']);
         $validator->each('cantidad', ['required|numeric']);
@@ -131,7 +132,13 @@ class FacturaController extends \BaseController {
                 $detalle_array[$key]['total'] = $value;                
             }
             
+            
+//            
             //Calculo las alicuotas de iva
+            
+            //si es factura b
+           
+            
             $Iva = array('AlicIva' => array('Id' => 3, 'BaseImp' => $ImpNeto, 'Importe' => 0));
             
             $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
@@ -146,15 +153,13 @@ class FacturaController extends \BaseController {
             $cae_vencimiento = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAEFchVto;
             $estado = $response->FECAESolicitarResult->FeCabResp->Resultado;              
                
-                        
+//                        
             //si la factura fue autorizada por AFIP la persisto en la base de datos  
             if($estado == "A")
             {                           
                 $factura = new Factura;
-                           
-                $fecha_input = Input::get('fecha');
-                $date = date("Y-m-d H:i:s", strtotime(str_replace('/','-', $fecha_input)));
-                $factura->fecha = $date;
+               
+                $factura->fecha = Input::get('fecha');
                            
                 $factura->numerofactura = $prox_nro;
                 $factura->tipocomprobante_id = Input::get('tipocomprobante_id');
@@ -178,7 +183,7 @@ class FacturaController extends \BaseController {
                     
                 //guardo la factura
                 $factura->save();
-                
+              
                 //guardo el detalle de factura                         
                 foreach($detalle_array as $row)
                 {        
@@ -197,8 +202,8 @@ class FacturaController extends \BaseController {
                 return Redirect::to('facturas');
                 }
             }            
-
-               
+//
+//               
            
 	}
 

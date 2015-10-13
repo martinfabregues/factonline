@@ -121,10 +121,10 @@
      <table class="table table-hover">
     <tbody>
         <tr>
-            <th>Producto</th>
+            <th class="col-md-5">Producto</th>
             <th>Imp. Unit.</th>
             <th>Cant.</th>
-            <th>Álicuota</th>
+            <th class="col-md-1">Álicuota</th>
             <th>Imp. IVA</th>
             <th>Total</th>
             <th></th>
@@ -140,7 +140,7 @@
                {{ Form::text('cantidad[]', Input::old('cantidad'), array('class' => 'form-control', 'placeholder' => 'Cant.')) }}
             </td>
             <td>
-               {{ Form::select('alicuota_id[]', [null => 'Selecciona una Álicuota'] + $alicuotas, null, array('class' => 'select2-select' , 'style' => '' )) }}
+               {{ Form::select('alicuota_id[]', [null => '%'] + $alicuotas, null, array('class' => 'select2-select' , 'style' => '' )) }}
             </td>
             <td>
                 {{ Form::text('importe_iva[]', Input::old('importe_iva'), array('class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}
@@ -262,6 +262,10 @@ $('.select2-select').select2({
     placeholder: "Selecciona",
     allowClear: true
 });
+
+ $(function() {
+    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  });
 
 </script>
 @endsection

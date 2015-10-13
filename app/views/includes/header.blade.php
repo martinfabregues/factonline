@@ -14,8 +14,8 @@
           <ul class="nav navbar-nav">
             <li><a href="{{ URL::to('clientes') }}">Clientes</a></li>
             <li><a href="{{ URL::to('proveedores') }}">Proveedores</a></li>
-            <li><a href="#contact">Productos</a></li>
-			<li><a href="{{ URL::to('puntosventa') }}">Puntos de Venta</a></li>
+            <li><a href="{{ URL::to('productos') }}">Productos</a></li>
+            <li><a href="{{ URL::to('puntosventa') }}">Puntos de Venta</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Facturación <span class="caret"></span></a>
               <ul class="dropdown-menu">
