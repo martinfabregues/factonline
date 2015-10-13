@@ -8,4 +8,4 @@
 <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap-theme.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
-<link rel="stylesheet" href="{{asset('assets/selectize/css/selectize.bootstrap3.css')}}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.css" rel="stylesheet" />

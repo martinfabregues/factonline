@@ -29,7 +29,7 @@
       <div class="col-sm-4"> 
         <div class="form-group">
             {{ Form::label('cliente_id', 'Cliente') }}
-            {{ Form::select('cliente_id', [null => 'Selecciona un Cliente'] + $clientes, null, array('class' => 'form-control', 'style' => '' )) }}
+            {{ Form::select('cliente_id', [null => 'Selecciona un Cliente'] + $clientes, null, array('class' => 'select2-select', 'style' => '' )) }}
         </div>
       </div>
 <!--      <div class="col-sm-4"> 
@@ -53,12 +53,12 @@
             {{ Form::select('tipodocumento_id', $tiposdocumento, null, array('class' => 'form-control', 'style' => '' )) }}
         </div>
       </div>  
-<!--      <div class="col-sm-4">  
+      <div class="col-sm-4">  
         <div class="form-group">
             {{ Form::label('documento', 'Nro. Documento') }}
             {{ Form::text('documento', Input::old('documento'), array('class' => 'form-control', 'placeholder' => 'Nro. Documento')) }}
         </div>
-      </div>-->
+      </div>
       <div class="col-sm-4">  
         <div class="form-group">
             {{ Form::label('condicioniva_id', 'Cond. IVA') }}
@@ -117,47 +117,49 @@
  <div class="panel-heading">Detalle del Comprobante</div>
  <div class="panel-body">
      
-<table id="table-data" class="table table-hover">
-    <tr>
-       <td class="col-md-1">Cód. Prod</td>
-       <td class="col-md-5">Producto</td>
-       <td class="col-md-1">Cant.</td>
-       <td class="col-md-1">Importe</td>
-       <td class="col-md-1">Alicuota IVA</td>
-       <td class="col-md-1">Imp. IVA.</td>
-       <td class="col-md-1">Total</td>
-       <td></td>
-    </tr>
-    <tr>
-        <td>
-            {{ Form::text('producto_id[]', Input::old('producto_id'), array('class' => 'form-control', 'Placeholder' => 'Cód.')) }}
-        </td>
-        <td>
-            {{ Form::select('producto_nombre[]', $productos, null, array('id' => 'producto_nombre', 'class' => 'form-control', 'style' => '' )) }}            
-        </td>
-        <td>
-            {{ Form::text('cantidad[]', Input::old('cantidad'), array('class' => 'form-control', 'Placeholder' => 'Cant.')) }}
-        </td>
-        <td>
-            {{ Form::text('importe[]', Input::old('importe'), array('class' => 'form-control', 'Placeholder' => 'Importe')) }}
-        </td>
-        <td>
-            {{ Form::select('alicuota_id[]', $alicuotas, null, array('id' => 'alicuota_id[]', 'class' => 'form-control', 'style' => '' )) }}
-        </td>
-        <td>
-            {{ Form::text('importe_iva[]', Input::old('importe_iva'), array('class' => 'form-control', 'Placeholder' => 'Imp. IVA')) }}
-        </td>
-        <td>
-            {{ Form::text('total_prod[]', Input::old('total_prod'), array('class' => 'form-control', 'Placeholder' => 'Total')) }}
-        </td>
-        <td><input type="button" class="btn btn-sm btn-success addButton" value="Nueva Fila" /></td>
-    </tr>
+
+     <table class="table table-hover">
+    <tbody>
+        <tr>
+            <th>Producto</th>
+            <th>Imp. Unit.</th>
+            <th>Cant.</th>
+            <th>Álicuota</th>
+            <th>Imp. IVA</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        <tr class="flavors">
+            <td>
+                {{ Form::select('producto_id[]', [null => 'Selecciona un Producto'] + $productos, null, array('class' => 'select2-select' , 'style' => '' )) }}
+            </td>
+            <td>
+                {{ Form::text('importe[]', Input::old('importe'), array('class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
+            </td>
+            <td>
+               {{ Form::text('cantidad[]', Input::old('cantidad'), array('class' => 'form-control', 'placeholder' => 'Cant.')) }}
+            </td>
+            <td>
+               {{ Form::select('alicuota_id[]', [null => 'Selecciona una Álicuota'] + $alicuotas, null, array('class' => 'select2-select' , 'style' => '' )) }}
+            </td>
+            <td>
+                {{ Form::text('importe_iva[]', Input::old('importe_iva'), array('class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}
+            </td>
+            <td>
+                {{ Form::text('total_prod[]', Input::old('total_prod'), array('class' => 'form-control', 'placeholder' => 'Total')) }}
+            </td>
+            <td>
+                <button type="button" class="btn btn-xs btn-default addline">Nuevo item</button>
+                <button type="button" class="btn btn-xs btn-danger remline">Eliminar item</button>
+            </td>
+        </tr>
+    </tbody>
 </table>
-     
      
     
  </div>
 </div>
+
 
 
 <div class="row">   
@@ -232,59 +234,32 @@
 
 @section('scripts')
 <script>
-$(function(){
-    $("#table-data").on('click', 'input.addButton', function() {
-        var $tr = $(this).closest('tr');
-        var allTrs = $tr.closest('table').find('tr');
-        var lastTr = allTrs[allTrs.length-1];
-        var $clone = $(lastTr).clone();
-        $clone.find('td').each(function(){
-            var el = $(this).find(':first-child');
-            var id = el.attr('alicuota_id') || null;
-            if(id) {
-                var i = id.substr(id.length-1);
-                var prefix = id.substr(0, (id.length-1));
-                el.attr('id', prefix+(+i+1));
-                el.attr('name', prefix+(+i+1));
-                $(this)[0].selectize.destroy();
-            }
-        });
-        $clone.find('input:text').val('');
-        $tr.closest('table').append($clone);
-        
+$(document).on('click', '.addline', function () {
+    var $tr = $(this).closest('tr');
+    var $lastTr = $tr.closest('table').find('tr:last');
+
+    $lastTr.find('.select2-select').select2('destroy');
+
+    var $clone = $lastTr.clone();
+
+    $clone.find('td').each(function() {
+        var el = $(this).find(':first-child');
+        var id = el.attr('id') || null;
+        if (id) {
+            var i = id.substr(id.length - 1);
+            var prefix = id.substr(0, (id.length - 1));
+            el.attr('id', prefix + (+i + 1));
+            el.attr('name', prefix + (+i + 1));
+        }
     });
-
-//    $("#table-data").on('change', 'select', function(){
-//        var val = $(this).val();
-//        $(this).closest('tr').find('input:text').val(val);
-//    });
+    $tr.closest('tbody').append($clone);
+        $lastTr.find('.select2-select').select2();
+    $clone.find('.select2-select').select2();
 });
 
-$('#cliente_id').selectize({
-    create: true,
-    sortField: {
-        field: 'text',
-        direction: 'asc'
-    },
-    dropdownParent: 'body'
-});
-
-$('#producto_nombre').selectize({
-    create: true,
-    sortField: {
-        field: 'text',
-        direction: 'asc'
-    },
-    dropdownParent: 'body'
-});
-
-$('#producto_nombre.1').selectize({
-    create: true,
-    sortField: {
-        field: 'text',
-        direction: 'asc'
-    },
-    dropdownParent: 'body'
+$('.select2-select').select2({
+    placeholder: "Selecciona",
+    allowClear: true
 });
 
 </script>

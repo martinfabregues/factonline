@@ -68,7 +68,6 @@ class FacturaController extends \BaseController {
   
         $validator = Validator::make(Input::all(), $rules);
         $validator->each('producto_id', ['required|numeric']);
-        $validator->each('producto_nombre', ['required']);
         $validator->each('cantidad', ['required|numeric']);
         $validator->each('importe', ['required|numeric']);
         $validator->each('alicuota_id', ['required|numeric']);

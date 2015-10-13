@@ -1,11 +1,9 @@
 <div id="copyright text-right"></div>
 <!-- Javascripts
 ================================================== -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="//codeorigin.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
-<script src="{{asset('assets/selectize/js/selectize.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
 <script>
   $(function() {
     $( "#datepicker" ).datepicker();
