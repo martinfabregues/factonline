@@ -149,13 +149,14 @@
                 {{ Form::text('total_prod[]', Input::old('total_prod'), array('class' => 'form-control', 'placeholder' => 'Total')) }}
             </td>
             <td>
-                <button type="button" class="btn btn-xs btn-default addline">Nuevo item</button>
-                <button type="button" class="btn btn-xs btn-danger remline">Eliminar item</button>
+                <button type="button" class="btn btn-xs btn-default addline">(+)</button>
+                <button type="button" class="btn btn-xs btn-danger remline">(-)</button>
             </td>
         </tr>
     </tbody>
 </table>
-     
+
+
     
  </div>
 </div>
