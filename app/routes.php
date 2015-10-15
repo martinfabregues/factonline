@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('pages.dashboard');
+	return View::make('home');
 });
 
 Route::resource('puntosventa', 'PuntoVentaController');

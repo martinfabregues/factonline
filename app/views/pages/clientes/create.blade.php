@@ -1,29 +1,27 @@
-@extends('layouts.default')
-@section('content')
-<ol class="breadcrumb">
-   <li><a href="#">Clientes</a></li> 
-   <li class="active"><a href="#">Nuevo Cliente</a></li>   
- </ol>
+@extends('layouts.app')
 
- 
-<div class="panel panel-default">
+@section('htmlheader_title')
+    Home
+@endsection
 
-    <div class="panel-heading">
 
-        <h3 class="panel-title">Nuevo Cliente</h3>
+@section('main-content')
+<section class="content">
+<div class="row">
+		<div class="col-md-12">
+			<div class="box box-info">
+                            <div class="box-header">Registro de Nuevo Cliente</div>
 
-    </div>
-
-    <div class="panel-body">
-	
-	<!-- if there are creation errors, they will show here -->
-<!--{{ HTML::ul($errors->all()) }}-->
-    <ul>
+                            <div class="box box-body pad table-responsive">
+                                
+                                  <ul>
    @foreach($errors->all() as $error)
-   <div class="alert alert-danger fade in" role="alert">{{ $error }}</div>
+   <div class="alert alert-danger alert-dismissible" role="alert">{{ $error }}
+       <button class="close" aria-hidden="true" data-dismiss="alert" type="button">x</button>
+   </div>
    @endforeach
     </ul>
-{{ Form::open(array('url' => 'clientes')) }}
+   {{ Form::open(array('url' => 'clientes')) }}
 
     <div class="form-group">
         {{ Form::label('apellido', 'Apellido') }}
@@ -92,11 +90,15 @@
   
     {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
 
-{{ Form::close() }}
+    {{ Form::close() }}
 	
+                                
+                            </div>
+			</div>
+		</div>
 	</div>
+</section>
 
-</div>
 
 
-@stop
+@endsection

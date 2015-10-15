@@ -1,25 +1,22 @@
-@extends('layouts.default')
-@section('content')
-<ol class="breadcrumb">
-   <li><a href="#">Clientes</a></li> 
-   <li class="active"><a href="#">Editar Cliente</a></li>   
- </ol>
+@extends('layouts.app')
+@section('htmlheader_title')
+    Home
+@endsection
 
- 
-<div class="panel panel-success">
 
-    <div class="panel-heading">
+@section('main-content')
 
-        <h3 class="panel-title">Editar Cliente</h3>
+<section class="content">
+<div class="row">
+		<div class="col-md-12">
+			<div class="box box-info">
+                            <div class="box-header">Editar Cliente</div>
 
-    </div>
+                            <div class="box box-body pad table-responsive">
+                       <ul>
 
-    <div class="panel-body">
-	
-	<!-- if there are creation errors, they will show here -->
-{{ HTML::ul($errors->all()) }}
-
-{{ Form::model($cliente, array('route' => array('clientes.update', $cliente->id), 'method' => 'PUT')) }}
+                                
+ {{ Form::model($cliente, array('route' => array('clientes.update', $cliente->id), 'method' => 'PUT')) }}
 
     <div class="form-group">
         {{ Form::label('apellido', 'Apellido') }}
@@ -88,11 +85,14 @@
   
     {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
 
-{{ Form::close() }}
-	
+{{ Form::close() }}   
+
+                            </div>
+			</div>
+		</div>
 	</div>
+</section>
 
-</div>
+@endsection
 
 
-@stop
