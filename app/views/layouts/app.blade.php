@@ -7,26 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 @include('partials.htmlheader')
 
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -47,12 +28,13 @@ desired effect
     </div><!-- /.content-wrapper -->
 
     @include('partials.controlsidebar')
-
+  
     @include('partials.footer')
 
 </div><!-- ./wrapper -->
-
+@yield('scripts')
 @include('partials.scripts')
 
 </body>
+
 </html>

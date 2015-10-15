@@ -137,7 +137,10 @@ class FacturaController extends \BaseController {
             //Calculo las alicuotas de iva
             
             //si es factura b
-           
+            if($CbteTipo == 1)
+            {
+                
+            }
             
             $Iva = array('AlicIva' => array('Id' => 3, 'BaseImp' => $ImpNeto, 'Importe' => 0));
             
