@@ -9,6 +9,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js" type="text/javascript"></script>
 
+<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+@yield('scripts')
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
       Both of these plugins are recommended to enhance the
       user experience. Slimscroll is required when using the
