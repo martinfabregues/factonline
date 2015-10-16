@@ -20,6 +20,7 @@ Route::resource('puntosventa', 'PuntoVentaController');
 Route::resource('clientes', 'ClienteController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('facturas', 'FacturaController');
-Route::resource('productos', 'ProductoController');
+//Route::resource('productos', 'ProductoController');
 
 Route::get('productos/findproducto', 'ProductoController@findproducto');
+Route::get('clientes/findcliente', 'ClienteController@BuscarCliente');

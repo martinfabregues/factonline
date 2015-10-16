@@ -49,8 +49,8 @@
                                     
                                         
                                         {{ Form::label('cliente_id', 'Cliente') }}
-                                        {{ Form::select('cliente_id', [null => 'Selecciona un Cliente'] + $clientes, null, array('class' => 'select2', 'style' => 'width:100%;' )) }}
-                                  
+                                        <!--{{ Form::select('cliente_id', [null => 'Selecciona un Cliente'] + $clientes, null, array('class' => 'select2', 'style' => 'width:100%;' )) }}-->
+                                        <input class="select2" type="hidden" style="width:100%;"/>
                                     </div>
 
 
@@ -94,22 +94,22 @@
         </tr>
         <tr>
             <td>
-                {{ Form::text('cantidad[]', '1', array('class' => 'form-control', 'placeholder' => 'Cant.', 'value' => '1')) }}
+                {{ Form::text('cantidad[]', '1', array('id' => 'cantidad0', 'class' => 'form-control', 'placeholder' => 'Cant.', 'value' => '1')) }}
             </td>
             <td>
-                <select name="producto_id[]" class="select2-producto" style="width:100%;"></select>
+                {{ Form::select('producto_id[]', $productos, null, array('id' => 'producto_id0', 'class' => 'select2-select', 'style' => 'width:100%;' )) }}
             </td>
             <td>
-               {{ Form::text('importe_unitario[]', '0.00', array('class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
+               {{ Form::text('importe_unitario[]', '0.00', array('id' => 'importe_unitario0', 'class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
             </td>
             <td>
-                {{ Form::select('alicuota_id[]', $alicuotas, null, array('class' => 'select2-alicuota', 'style' => '' )) }}
+                {{ Form::select('alicuota_id[]', $alicuotas, null, array('id' => 'alicuota_id0', 'class' => 'select2-alicuota', 'style' => '' )) }}
             </td>
             <td>
-                {{ Form::text('importe_iva[]', '0.00', array('class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}
+                {{ Form::text('importe_iva[]', '0.00', array('id' => 'importe_iva0', 'class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}
             </td>
             <td>
-                {{ Form::text('total_producto[]', '0.00', array('class' => 'form-control', 'placeholder' => 'Total')) }}
+                {{ Form::text('total_producto[]', '0.00', array('id' => 'total_producto0', 'class' => 'form-control', 'placeholder' => 'Total')) }}
             </td>
             <td>
                 <a class="btn btn-xs btn-danger" href="">X</a>
@@ -246,35 +246,50 @@
 
 @section('scripts')
 <script>
-    $('.select2').select2();
-    
-    $(document).ready(function(){
-        $('#detalles').DataTable({
-            paging: false,
-            searching: false,
-            "bInfo": false
-        });
-        
-        $('#tributos').DataTable({
-            paging: false,
-            searching: false,
-            "bInfo": false
-        });
-        
+//    $(function(){
+//    $('.select2').select2({
+//         $ajax: {
+//                dataType: 'json',
+//                url: 'clientes/BuscarCliente',
+//                delay: 400,
+//                data: function(params) {
+//                    return {
+//                        term: params.term
+//                    };
+//                },
+//                processResults: function (data, page) {  
+//                  return {
+//                    results: data                    
+//                  };
+//                }
+//            }    
+//    });
+//    });
+//    $(document).ready(function(){
+//        $('#detalles').DataTable({
+//            paging: false,
+//            searching: false,
+//            "bInfo": false
+//        });
+//        
+//        $('#tributos').DataTable({
+//            paging: false,
+//            searching: false,
+//            "bInfo": false
+//        });
+//        
       
 
         
-       
-    });
+//       
+//    });
     
-    //agregar filas dinamicamente a tabla de detalle
-   $(document).on('click', '.addline', function () {
+$(document).on('click', '.addline', function () {
     var $tr = $('.det tr').last();
     var $lastTr = $tr.closest('.det').find('tr:last');
 
-    $lastTr.find('.select2-producto').select2('destroy');
-    $lastTr.find('.select2-alicuota').select2('destroy');
-    
+    $lastTr.find('.select2-select').select2('destroy');
+
     var $clone = $lastTr.clone();
 
     $clone.find('td').each(function() {
@@ -288,13 +303,33 @@
         }
     });
     $tr.closest('tbody').append($clone);
-    $lastTr.find('.select2-producto').select2();
-    $lastTr.find('.select2-alicuota').select2();
-    $clone.find('.select2-producto').select2();
-    $clone.find('.select2-alicuota').select2();
+        $lastTr.find('.select2-select').select2();
+    $clone.find('.select2-select').select2();
 });
-$('.select2-producto').select2();
-$('.select2-alicuota').select2();
+$('.select2-select').select2({
+    ajax: {
+        url: "productos/findproducto",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                q: params.term // search term
+            };
+        },
+        processResults: function (data) {
+            // parse the results into the format expected by Select2.
+            // since we are using custom formatting functions we do not need to
+            // alter the remote JSON data
+            return {
+                results: data
+            };
+        },
+        cache: true
+    },
+    minimumInputLength: 2
+
+});
+
 
 
 

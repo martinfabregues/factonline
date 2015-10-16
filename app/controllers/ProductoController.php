@@ -121,7 +121,7 @@ class ProductoController extends \BaseController {
         public function findproducto()
         {            
             
-            $termino = Input::get('term');
+            $termino = Input::get('q');
             $results = array();
 	
             $queries = DB::table('productos')

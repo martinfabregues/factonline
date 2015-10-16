@@ -20,7 +20,7 @@
     <!-- iCheck -->
     <link href="{{ asset('assets/plugins/iCheck/square/blue.css') }}" rel="stylesheet" type="text/css" />
     
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" type="text/css"/>
     
     <link href="{{ asset('assets/css/select2-bootstrap.css')}}" rel="stylesheet" type="text/css"/>
     
