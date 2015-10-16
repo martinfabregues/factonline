@@ -117,5 +117,23 @@ class ProductoController extends \BaseController {
 		//
 	}
 
+        
+        public function findproducto()
+        {            
+            
+            $termino = Input::get('term');
+            $results = array();
+	
+            $queries = DB::table('productos')
+		->where('nombre', 'LIKE', '%'.$termino.'%')		
+		->take(5)->get();
+	
+            foreach ($queries as $query)
+            {
+                $results[] = [ 'id' => $query->id, 'value' => $query->nombre];
+            }
+            
+            return Response::json($results);
+        }
 
 }

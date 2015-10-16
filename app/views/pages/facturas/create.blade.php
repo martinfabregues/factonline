@@ -81,34 +81,44 @@
         <div class="box-header">
             <h3 class="box-title">Detalle</h3>
             <div class="box-body table-responsive no-padding">
-    <table class="table table-hover detalles" id="detalles">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="col-md-1">Cantidad</th>
-                                            <th class="col-md-5">Detalle</th>
-                                            <th>Precio Unit.</th>
-                                            <th>IVA</th>
-                                            <th>Imp. IVA</th>
-                                            <th>Total</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                  
-                                        <tr>
-                                            <td>{{ Form::text('cantidad', Input::old('cantidad'), array('class' => 'form-control bfh-number', 'placeholder' => 'Cant.')) }}</td> 
-                                            <td>{{ Form::select('producto_id', $productos, null, array('class' => 'select2', 'style' => 'width:100%;' )) }}</td>
-                                            <td>{{ Form::text('importe_unitario', Input::old('importe_unitario'), array('class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}</td>
-                                            <td>{{ Form::select('alicuota_id', $alicuotas, null, array('class' => 'select2', 'style' => 'width:100%;' )) }}</td>
-                                            <td>{{ Form::text('importe_iva', Input::old('importe_iva'), array('class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}</td>
-                                            <td>{{ Form::text('total', Input::old('total'), array('class' => 'form-control', 'placeholder' => 'Total')) }}</td>
-                                            <td>
-                                                <a class="btn btn-xs btn-danger" href="">Eliminar</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+<table class="table table-hover det">
+    <tbody>
+        <tr>
+            <th class="col-md-1">Cantidad</th>
+            <th class="col-md-5">Detalle</th>
+            <th>Imp. Unit.</th>
+            <th>Alicuota</th>
+            <th>Imp. IVA</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>
+                {{ Form::text('cantidad[]', '1', array('class' => 'form-control', 'placeholder' => 'Cant.', 'value' => '1')) }}
+            </td>
+            <td>
+                <select name="producto_id[]" class="select2-producto" style="width:100%;"></select>
+            </td>
+            <td>
+               {{ Form::text('importe_unitario[]', '0.00', array('class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
+            </td>
+            <td>
+                {{ Form::select('alicuota_id[]', $alicuotas, null, array('class' => 'select2-alicuota', 'style' => '' )) }}
+            </td>
+            <td>
+                {{ Form::text('importe_iva[]', '0.00', array('class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}
+            </td>
+            <td>
+                {{ Form::text('total_producto[]', '0.00', array('class' => 'form-control', 'placeholder' => 'Total')) }}
+            </td>
+            <td>
+                <a class="btn btn-xs btn-danger" href="">X</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
                 <span class="row top-buffer">
-                    <a href="#" class="btn btn-primary btn-sm btnagregarfila" id="btnagregarfila">+ Agregar Item</a>
+                    <a href="#" class="btn btn-primary btn-sm addline" id="addline">+ Agregar Item</a>
                 </span>
         </div>
         </div>
@@ -251,27 +261,44 @@
             "bInfo": false
         });
         
-        var t = $('#detalles').DataTable();
-        var counter = 1;
-        $('#btnagregarfila').on( 'click', function () {
-            t.row.add( [
-                '<td><input type="text" name="cantidad" class="form-control"/></td>',
-                '<td></td>',
-                '<td><input type="text" name="importe_unitario" class="form-control"/></td>',
-                '<td><select name="alicuota_id" id="select2iva" class="select2" style="width=100%;"></select></td>',
-                '<td><input type="text" name="importe_iva" class="form-control"/></td>',
-                '<td><input type="text" name="total" class="form-control"/></td>',
-                '<td><a class="btn btn-xs btn-danger" href="">Eliminar</a></td>'
-            ] ).draw( false );
-            
-            $('#select2prod').select2();
-            $('#select2iva').select2();
-            
-            counter++;
-        });
+      
+
         
        
     });
+    
+    //agregar filas dinamicamente a tabla de detalle
+   $(document).on('click', '.addline', function () {
+    var $tr = $('.det tr').last();
+    var $lastTr = $tr.closest('.det').find('tr:last');
+
+    $lastTr.find('.select2-producto').select2('destroy');
+    $lastTr.find('.select2-alicuota').select2('destroy');
+    
+    var $clone = $lastTr.clone();
+
+    $clone.find('td').each(function() {
+        var el = $(this).find(':first-child');
+        var id = el.attr('id') || null;
+        if (id) {
+            var i = id.substr(id.length - 1);
+            var prefix = id.substr(0, (id.length - 1));
+            el.attr('id', prefix + (+i + 1));
+            el.attr('name', prefix + (+i + 1));
+        }
+    });
+    $tr.closest('tbody').append($clone);
+    $lastTr.find('.select2-producto').select2();
+    $lastTr.find('.select2-alicuota').select2();
+    $clone.find('.select2-producto').select2();
+    $clone.find('.select2-alicuota').select2();
+});
+$('.select2-producto').select2();
+$('.select2-alicuota').select2();
+
+
+
+
 </script>
 @stop
 

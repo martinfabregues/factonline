@@ -70,10 +70,10 @@ class FacturaController extends \BaseController {
         $validator = Validator::make(Input::all(), $rules);
         $validator->each('producto_id', ['required|numeric']);
         $validator->each('cantidad', ['required|numeric']);
-        $validator->each('importe', ['required|numeric']);
+        $validator->each('importe_unitario', ['required|numeric']);
         $validator->each('alicuota_id', ['required|numeric']);
         $validator->each('importe_iva', ['required|numeric']);
-        $validator->each('total_prod', ['required|numeric']);
+        $validator->each('total_producto', ['required|numeric']);
         
         if($validator->fails()){
             return Redirect::to('facturas/create')
@@ -116,8 +116,8 @@ class FacturaController extends \BaseController {
                 $detalle_array[$key]['cantidad'] = $value;                
             }
             
-            foreach($input['importe'] as $key => $value){
-                $detalle_array[$key]['importe'] = $value;                
+            foreach($input['importe_unitario'] as $key => $value){
+                $detalle_array[$key]['importe_unitario'] = $value;                
             }
             
             foreach($input['alicuota_id'] as $key => $value){
@@ -128,8 +128,8 @@ class FacturaController extends \BaseController {
                 $detalle_array[$key]['importe_iva'] = $value;                
             }
             
-            foreach($input['total_prod'] as $key => $value){
-                $detalle_array[$key]['total'] = $value;                
+            foreach($input['total_producto'] as $key => $value){
+                $detalle_array[$key]['total_producto'] = $value;                
             }
             
             
@@ -193,10 +193,10 @@ class FacturaController extends \BaseController {
                     $det = new FacturaDetalle;
                     $det->producto_id = $row['producto_id'];
                     $det->cantidad = $row['cantidad'];
-                    $det->importe = $row['importe'];
+                    $det->importe = $row['importe_unitario'];
                     $det->alicuota_id = $row['alicuota_id'];
                     $det->importe_iva = $row['importe_iva'];
-                    $det->total = $row['total'];
+                    $det->total = $row['total_producto'];
                                 
                     $factura->detalle()->save($det);                                
                 }

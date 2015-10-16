@@ -22,4 +22,4 @@ Route::resource('proveedores', 'ProveedorController');
 Route::resource('facturas', 'FacturaController');
 Route::resource('productos', 'ProductoController');
 
-Route::get('clientes/BuscarCliente', 'ClienteController@BuscarCliente');
+Route::get('productos/findproducto', 'ProductoController@findproducto');
