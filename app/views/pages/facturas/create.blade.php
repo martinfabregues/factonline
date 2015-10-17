@@ -50,7 +50,9 @@
                                         
                                         {{ Form::label('cliente_id', 'Cliente') }}
                                         <!--{{ Form::select('cliente_id', [null => 'Selecciona un Cliente'] + $clientes, null, array('class' => 'select2', 'style' => 'width:100%;' )) }}-->
-                                        <select id="cliente_id" name="cliente_id" placeholder="Selecciona un Cliente" class="select2-cliente" style="width:100%;"></select>
+                                        <!--<select id="cliente_id" name="cliente_id" placeholder="Selecciona un Cliente" class="select2-cliente" style="width:100%;"></select>-->
+                                        <input type="hidden" id="cliente_id" class="select2-cliente" style="width:100%;" name="cliente_id"/>
+                                        
                                     </div>
 
 
@@ -97,7 +99,8 @@
                 {{ Form::text('cantidad[]', '1', array('id' => 'cantidad0', 'class' => 'form-control', 'placeholder' => 'Cant.', 'value' => '1')) }}
             </td>
             <td>
-                <select id="producto_id0" name="producto_id[]" placeholder="Selecciona un Producto" class="select2-select" style="width:100%; height:100%;"></select>
+                <!--<select id="producto_id0" name="producto_id[]" placeholder="Selecciona un Producto" class="select2-select" style="width:100%; height:100%;"></select>-->
+                <input type="hidden" id="producto_id0" name="producto_id[]" class="select2-select" style="width:100%;"/>
             </td>
             <td>
                {{ Form::text('importe_unitario[]', '0.00', array('id' => 'importe_unitario0', 'class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
@@ -246,44 +249,8 @@
 
 @section('scripts')
 <script>
-//    $(function(){
-//    $('.select2').select2({
-//         $ajax: {
-//                dataType: 'json',
-//                url: 'clientes/BuscarCliente',
-//                delay: 400,
-//                data: function(params) {
-//                    return {
-//                        term: params.term
-//                    };
-//                },
-//                processResults: function (data, page) {  
-//                  return {
-//                    results: data                    
-//                  };
-//                }
-//            }    
-//    });
-//    });
-//    $(document).ready(function(){
-//        $('#detalles').DataTable({
-//            paging: false,
-//            searching: false,
-//            "bInfo": false
-//        });
-//        
-//        $('#tributos').DataTable({
-//            paging: false,
-//            searching: false,
-//            "bInfo": false
-//        });
-//        
-      
 
-        
-//       
-//    });
-    
+ //CLONAR FILA DE TABLA Y BINDEAR FUNCION DE BUSQUEDA EN SELECTS   
 $(document).on('click', '.addline', function () {
     var $tr = $('.det tr').last();
     var $lastTr = $tr.closest('.det').find('tr:last');
@@ -306,80 +273,67 @@ $(document).on('click', '.addline', function () {
 //    $lastTr.find('.select2-select').select2();
 //    $clone.find('.select2-select').select2();
 
-$('.select2-select').select2({
-    
-    ajax: {
-        url: "../productos/findproducto",
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-            return {
-                q: params.term // search term
-            };
-        },
-        processResults: function (data) {
-            // parse the results into the format expected by Select2.
-            // since we are using custom formatting functions we do not need to
-            // alter the remote JSON data
-            return {
-                results: data
-            };
-        },
-        cache: true
-    }
-
-});
-});
-
-
 
 $('.select2-select').select2({
     placeholder: "Seleccione un Producto",
-    theme: "bootstrap",
-    ajax: {
+    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
         url: "../productos/findproducto",
         dataType: 'json',
-        delay: 250,
-        data: function (params) {
+        quietMillis: 250,
+        data: function (term, page) {
             return {
-                q: params.term // search term
+                q: term // search term
             };
         },
-        processResults: function (data) {
-            // parse the results into the format expected by Select2.
-            // since we are using custom formatting functions we do not need to
-            // alter the remote JSON data
+        results: function (data, page) { // parse the results into the format expected by Select2.
+            // since we are using custom formatting functions we do not need to alter the remote JSON data
+            return { results: data };
+        }
+    }
+
+});
+});
+
+
+//FUNCION DE BUSQUEDA EN EL SELECT DE LA PRIMERA FILA
+$('.select2-select').select2({
+    placeholder: "Seleccione un Producto",
+    ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+        url: "../productos/findproducto",
+        dataType: 'json',
+        quietMillis: 250,
+        data: function (term, page) {
             return {
-                results: data
+                q: term // search term
             };
         },
-        cache: true
+        results: function (data, page) { // parse the results into the format expected by Select2.
+            // since we are using custom formatting functions we do not need to alter the remote JSON data
+            return { results: data };
+        }
     }
 
 });
 
+//FUNCION DE BUSQUEDA DE CLIENTES
 $('.select2-cliente').select2({
     placeholder: "Seleccione un Cliente",
-    theme: "bootstrap",
-    ajax: {
+        ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
         url: "../clientes/findcliente",
         dataType: 'json',
-        delay: 250,
-        data: function (params) {
+        quietMillis: 250,
+        data: function (term, page) {
             return {
-                q: params.term // search term
+                q: term // search term
             };
         },
-        processResults: function (data) {
-            // parse the results into the format expected by Select2.
-            // since we are using custom formatting functions we do not need to
-            // alter the remote JSON data
-            return {
-                results: data
-            };
-        },
-        cache: true
+        results: function (data, page) { // parse the results into the format expected by Select2.
+            // since we are using custom formatting functions we do not need to alter the remote JSON data
+            return { results: data };
+        }
     }
+    
+    
 
 });
 
