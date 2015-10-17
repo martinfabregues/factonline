@@ -41,13 +41,13 @@
             <li class="treeview">
                 <a href="#"><i class='fa fa-users'></i> <span>Proveedores</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Administrar Proveedores</a></li>
+                    <li><a href="{{ url('/proveedores') }}"><i class="fa fa-circle-o"></i>Administrar Proveedores</a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-suitcase'></i> <span>Productos</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Administrar Productos</a></li>
+                    <li><a href="{{ url('/productos') }}"><i class="fa fa-circle-o"></i>Administrar Productos</a></li>
                 </ul>
             </li>     
             <li class="treeview">
@@ -60,7 +60,7 @@
                 <a href="#"><i class='fa fa-gears'></i> <span>Configuración</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-o"></i>Empresa</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Puntos de Venta</a></li>
+                    <li><a href="{{ url('/puntosventa') }}"><i class="fa fa-circle-o"></i>Puntos de Venta</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

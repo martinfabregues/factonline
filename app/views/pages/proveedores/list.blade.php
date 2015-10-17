@@ -1,23 +1,37 @@
-@extends('layouts.default')
-@section('content')
- <ol class="breadcrumb">
- <li><a href="#">Proveedores</a></li>
-   <li class="active"><a href="#">Listado</a></li>   
- </ol>
- 
-<a href="{{ URL::to('proveedores/create') }}" class="btn btn-sm btn-primary">Nuevo</a>
-<p>
+@extends('layouts.app')
 
- <table class="table table-condensed table-bordered">
+@section('htmlheader_title')
+    Home
+@endsection
+
+
+@section('main-content')
+
+<section clas="content">
+    <div class="row">
+        <div class="col-sm-9"></div>
+            <span class="row">
+                <a href="{{ URL::to('proveedores/create') }}" class="btn btn-primary pull-right">+ Nuevo Proveedor</a>
+            </span>
+        </div>
+    
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-primary">
+                            <div class="box-header">Proveedores Registrados</div>
+
+                            <div class="box box-body pad table-responsive">
+                        
+                                 <table class="table table-bordered table-hover dataTable" role="grid">
     <thead>
         <tr>
-            <td>#</td>
-            <td>Nombre</td>
-            <td>Dirección</td>
-            <td>Numeración</td>
-			<td>Barrio</td>
-			<td>Cuit</td>
-            <td>Acciones</td>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Numeración</th>
+            <th>Barrio</th>
+            <th>Cuit</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -39,4 +53,38 @@
     </tbody>
 </table>
 
-@stop
+
+                            </div>
+			</div>
+		</div>
+	</div>
+</section>
+
+@endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

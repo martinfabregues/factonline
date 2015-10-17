@@ -10,9 +10,9 @@
 <section clas="content">
     <div class="row">
         <div class="col-sm-9"></div>
-            <div class="col-sm-2">
-            <a href="{{ URL::to('clientes/create') }}" class="btn btn-primary pull-right">Nuevo Cliente</a>
-            </div>
+            <span class="row">
+                <a href="{{ URL::to('clientes/create') }}" class="btn btn-primary pull-right">+ Nuevo Cliente</a>
+            </span>
         </div>
     
 	<div class="row">
@@ -22,9 +22,7 @@
 
                             <div class="box box-body pad table-responsive">
                         
-                               
-                                    
-                                    <table id="clientes" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="clientes_info">
+                                 <table id="clientes" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="clientes_info">
                                         <thead>
                                             <tr role="row">
                                                 <th class="sorting_asc" aria-controls="clientes" aria-sort="ascending">#</th>
@@ -52,13 +50,27 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                           </div>
+
+
+                            </div>
 			</div>
 		</div>
 	</div>
 </section>
 
-
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

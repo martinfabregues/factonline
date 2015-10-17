@@ -18,7 +18,7 @@ Route::get('/', function()
 
 Route::resource('puntosventa', 'PuntoVentaController');
 //Route::resource('clientes', 'ClienteController');
-Route::resource('proveedores', 'ProveedorController');
+//Route::resource('proveedores', 'ProveedorController');
 Route::resource('facturas', 'FacturaController');
 
 //ROUTES CLIENTESCONTROLLER
@@ -28,5 +28,10 @@ Route::post('store', 'ClienteController@store');
 Route::get('clientes/findcliente', 'ClienteController@findcliente');
 
 
+//ROUTES PRODUCTOCONTROLLER
+Route::get('productos', 'ProductoController@index');
 Route::get('productos/findproducto', 'ProductoController@findproducto');
 
+
+//ROUTES PROVEEDORCONTROLLER
+Route::get('proveedores', 'ProveedorController@index');
