@@ -1,68 +1,102 @@
-@extends('layouts.app')
+@extends('layouts.theme')
 
-@section('htmlheader_title')
-    Home
-@endsection
+@section('main-content') 
 
+<div class="page-title">
+    <div class="title_left">
+        <h3>Plain Page</h3>
+    </div>
 
-@section('main-content')
-
-<section clas="content">
-    <div class="row">
-        <div class="col-sm-9"></div>
-            <div class="col-sm-2">
-                <a href="{{ URL::to('facturas/create') }}" class="btn btn-primary pull-right">+ Nuevo Comprobante</a>
+    <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
             </div>
         </div>
-    
-	<div class="row">
-		<div class="col-md-12">
-			<div class="box box-primary">
-                            <div class="box-header">Comprobantes Registrados</div>
+    </div>
+</div>
 
-                            <div class="box box-body pad table-responsive">
-                        
-                                 <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="clientes_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th>Fecha</th>
-                                            <th>Nro. Comprobante</th>
-                                            <th>Tipo Comp.</th>
-                                            <th>Cliente</th>
-                                            <th>Total</th>
-                                            <th>CAE</th>
-                                            <th>CAE Venc.</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($facturas as $key => $value)
-                                        <tr>
-                                            <td>{{ date('d-m-Y', strtotime($value->fecha)) }}</td> 
-                                            <td>{{ str_pad($value->PuntoVenta->codigoafip, 4, '0', STR_PAD_LEFT) . '-'. str_pad($value->numerofactura, 8, '0', STR_PAD_LEFT) }}</td>
-                                            <td>{{ $value->TipoComprobante->tipo_comprobante }}</td>
-                                            <td>{{ $value->Cliente->apellido . ', ' . $value->Cliente->nombres }}</td>
-                                            <td>{{ $value->total }}</td>
-                                            <td>{{ $value->cae }}</td>
-                                            <td>{{ $value->cae_vencimiento->format('d-m-Y') }}</td>
-                                            <td>
-                                                <a class="btn btn-xs btn-default" href="{{ URL::to('facturas/' . $value->id . '/edit') }}">Editar</a>
-                                                <a class="btn btn-xs btn-danger" href="{{ URL::to('facturas/' . $value->id . '/edit') }}">Eliminar</a>
+<div class="clearfix"></div>
 
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+<div class="row">
 
-                            </div>
-			</div>
-		</div>
-	</div>
-</section>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height:800px;">
+            <div class="x_title">
+                <h2>Plain Page</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                
+                <div class="clearfix"></div>
+                
+            </div>
+            <div class="x-content">
+                
+                <span class="row">
+                    <a href="{{ URL::to('facturas/create') }}" class="btn btn-primary pull-right">+ Nuevo Comprobante</a>
+                </span>
+                
+                <div class="row">
+                    
+                    <table id="comprobantes" class="table table-striped responsive-utilities jambo_table">
+                       
+                        <thead>
+                            <tr role="headings">
+                                <th class="column-title">Fecha</th>
+                                <th class="column-title">Nro. Comprobante</th>
+                                <th class="column-title">Tipo Comp.</th>
+                                <th class="column-title">Cliente</th>
+                                <th class="column-title">Total</th>
+                                <th class="column-title">CAE</th>
+                                <th class="column-title">CAE Venc.</th>
+                                <th class="column-title">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($facturas as $key => $value)
+                            <tr>
+                                <td>{{ date('d-m-Y', strtotime($value->fecha)) }}</td> 
+                                <td>{{ str_pad($value->PuntoVenta->codigoafip, 4, '0', STR_PAD_LEFT) . '-'. str_pad($value->numerofactura, 8, '0', STR_PAD_LEFT) }}</td>
+                                <td>{{ $value->TipoComprobante->tipo_comprobante }}</td>
+                                <td>{{ $value->Cliente->apellido . ', ' . $value->Cliente->nombres }}</td>
+                                <td>{{ $value->total }}</td>
+                                <td>{{ $value->cae }}</td>
+                                <td>{{ $value->cae_vencimiento->format('d-m-Y') }}</td>
+                                <td>
+                                    <a class="btn btn-xs btn-default" href="{{ URL::to('facturas/' . $value->id . '/edit') }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a class="btn btn-xs btn-danger" href="{{ URL::to('facturas/' . $value->id . '/edit') }}"><span class="glyphicon glyphicon-remove"></span></a>
 
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
 
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
 
 
 

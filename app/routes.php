@@ -13,10 +13,10 @@
 
 Route::get('/', function()
 {
-	return View::make('home');
+	return View::make('dashboard');
 });
 
-Route::resource('puntosventa', 'PuntoVentaController');
+//Route::resource('puntosventa', 'PuntoVentaController');
 //Route::resource('clientes', 'ClienteController');
 //Route::resource('proveedores', 'ProveedorController');
 Route::resource('facturas', 'FacturaController');
@@ -31,7 +31,17 @@ Route::get('clientes/findcliente', 'ClienteController@findcliente');
 //ROUTES PRODUCTOCONTROLLER
 Route::get('productos', 'ProductoController@index');
 Route::get('productos/findproducto', 'ProductoController@findproducto');
+Route::get('productos/create', 'ProductoController@create');
+Route::post('store', 'ProductoController@store');
 
 
 //ROUTES PROVEEDORCONTROLLER
 Route::get('proveedores', 'ProveedorController@index');
+Route::get('proveedores/create', 'ProveedorController@create');
+Route::post('store', 'ProveedorController@store');
+
+
+//ROUTES PUNTOSDEVENTA
+Route::get('puntosventa', 'PuntoVentaController@index');
+Route::get('puntosventa/create', 'PuntoVentaController@create');
+Route::post('store', 'PuntoVentaController@store');

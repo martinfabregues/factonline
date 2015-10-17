@@ -16,10 +16,11 @@
 
     <!-- Custom styling plus plugins -->
     <link href="{{ asset('assets/theme/css/custom.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/theme/css/icheck/flat/green.css') }}" rel="stylesheet">
+    <!--<link href="{{ asset('assets/theme/css/icheck/flat/green.css') }}" rel="stylesheet">-->
 
-
-    <script src="{{ asset('assets/theme/js/jquery.min.js') }}"></script>
+    <!--Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" type="text/css"/>    
+    <!--<link href="{{ asset('assets/css/select2-bootstrap.css') }}" rel="stylesheet" type="text/css"/>-->
 
     <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>

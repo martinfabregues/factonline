@@ -46,6 +46,10 @@
                 <div class="clearfix"></div>
                 
             </div>
+            <div class="x-content">
+                
+                contenido
+            </div>
         </div>
     </div>
 </div>
