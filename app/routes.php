@@ -17,10 +17,16 @@ Route::get('/', function()
 });
 
 Route::resource('puntosventa', 'PuntoVentaController');
-Route::resource('clientes', 'ClienteController');
+//Route::resource('clientes', 'ClienteController');
 Route::resource('proveedores', 'ProveedorController');
 Route::resource('facturas', 'FacturaController');
-//Route::resource('productos', 'ProductoController');
+
+//ROUTES CLIENTESCONTROLLER
+Route::get('clientes', 'ClienteController@index');
+Route::get('clientes/create', 'ClienteController@create');
+Route::post('store', 'ClienteController@store');
+Route::get('clientes/findcliente', 'ClienteController@findcliente');
+
 
 Route::get('productos/findproducto', 'ProductoController@findproducto');
-Route::get('clientes/findcliente', 'ClienteController@BuscarCliente');
+

@@ -21,7 +21,7 @@
    </div>
    @endforeach
     </ul>
-   {{ Form::open(array('url' => 'clientes')) }}
+   {{ Form::open(array('action' => 'ClienteController@store')) }}
 
     <div class="form-group">
         {{ Form::label('apellido', 'Apellido') }}

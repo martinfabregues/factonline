@@ -130,7 +130,7 @@ class ProductoController extends \BaseController {
 	
             foreach ($queries as $query)
             {
-                $results[] = [ 'id' => $query->id, 'value' => $query->nombre];
+                $results[] = [ 'id' => $query->id, 'text' => $query->nombre];
             }
             
             return Response::json($results);

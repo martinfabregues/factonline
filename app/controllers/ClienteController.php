@@ -178,9 +178,9 @@ class ClienteController extends \BaseController {
 	}
 
         
-        public function BuscarCliente()
+        public function findcliente()
         {
-            $term = Input::get('term');
+            $term = Input::get('q');
 	
             $results = array();
 	
@@ -191,7 +191,7 @@ class ClienteController extends \BaseController {
 	
             foreach ($queries as $query)
             {
-                $results[] = [ 'id' => $query->id, 'value' => $query->apellido.' '.$query->nombres ];
+                $results[] = [ 'id' => $query->id, 'text' => $query->apellido.' '.$query->nombres ];
             }
             
             return Response::json($results);

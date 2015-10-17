@@ -50,7 +50,7 @@
                                         
                                         {{ Form::label('cliente_id', 'Cliente') }}
                                         <!--{{ Form::select('cliente_id', [null => 'Selecciona un Cliente'] + $clientes, null, array('class' => 'select2', 'style' => 'width:100%;' )) }}-->
-                                        <input class="select2" type="hidden" style="width:100%;"/>
+                                        <select id="cliente_id" name="cliente_id" placeholder="Selecciona un Cliente" class="select2-cliente" style="width:100%;"></select>
                                     </div>
 
 
@@ -97,7 +97,7 @@
                 {{ Form::text('cantidad[]', '1', array('id' => 'cantidad0', 'class' => 'form-control', 'placeholder' => 'Cant.', 'value' => '1')) }}
             </td>
             <td>
-                {{ Form::select('producto_id[]', $productos, null, array('id' => 'producto_id0', 'class' => 'select2-select', 'style' => 'width:100%;' )) }}
+                <select id="producto_id0" name="producto_id[]" placeholder="Selecciona un Producto" class="select2-select" style="width:100%; height:100%;"></select>
             </td>
             <td>
                {{ Form::text('importe_unitario[]', '0.00', array('id' => 'importe_unitario0', 'class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
@@ -290,7 +290,7 @@ $(document).on('click', '.addline', function () {
 
     $lastTr.find('.select2-select').select2('destroy');
 
-    var $clone = $lastTr.clone();
+    var $clone = $lastTr.clone(true);
 
     $clone.find('td').each(function() {
         var el = $(this).find(':first-child');
@@ -303,12 +303,13 @@ $(document).on('click', '.addline', function () {
         }
     });
     $tr.closest('tbody').append($clone);
-        $lastTr.find('.select2-select').select2();
-    $clone.find('.select2-select').select2();
-});
+//    $lastTr.find('.select2-select').select2();
+//    $clone.find('.select2-select').select2();
+
 $('.select2-select').select2({
+    
     ajax: {
-        url: "productos/findproducto",
+        url: "../productos/findproducto",
         dataType: 'json',
         delay: 250,
         data: function (params) {
@@ -325,14 +326,62 @@ $('.select2-select').select2({
             };
         },
         cache: true
-    },
-    minimumInputLength: 2
+    }
 
+});
 });
 
 
 
+$('.select2-select').select2({
+    placeholder: "Seleccione un Producto",
+    theme: "bootstrap",
+    ajax: {
+        url: "../productos/findproducto",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                q: params.term // search term
+            };
+        },
+        processResults: function (data) {
+            // parse the results into the format expected by Select2.
+            // since we are using custom formatting functions we do not need to
+            // alter the remote JSON data
+            return {
+                results: data
+            };
+        },
+        cache: true
+    }
 
+});
+
+$('.select2-cliente').select2({
+    placeholder: "Seleccione un Cliente",
+    theme: "bootstrap",
+    ajax: {
+        url: "../clientes/findcliente",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                q: params.term // search term
+            };
+        },
+        processResults: function (data) {
+            // parse the results into the format expected by Select2.
+            // since we are using custom formatting functions we do not need to
+            // alter the remote JSON data
+            return {
+                results: data
+            };
+        },
+        cache: true
+    }
+
+});
 
 </script>
 @stop
