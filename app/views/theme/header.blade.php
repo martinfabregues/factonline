@@ -22,6 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" type="text/css"/>    
     <!--<link href="{{ asset('assets/css/select2-bootstrap.css') }}" rel="stylesheet" type="text/css"/>-->
 
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
