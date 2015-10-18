@@ -90,6 +90,7 @@
 
                     
                 </div>
+                <div class="row top-buffer pull-right">{{ $facturas->links() }}</div>
                 
             </div>
         </div>

@@ -9,7 +9,7 @@ class ClienteController extends \BaseController {
 	 */
 	public function index()
 	{
-		$clientes = Cliente::all();
+		$clientes = Cliente::paginate(10);
 		return View::make('pages.clientes.list')
 		->with('clientes', $clientes);
 	}

@@ -10,7 +10,7 @@ class FacturaController extends \BaseController {
 	 */
 	public function index()
 	{
-            $facturas = Factura::all();
+            $facturas = Factura::paginate(10);
                
             return View::make('pages.facturas.list')
                     ->with('facturas', $facturas);

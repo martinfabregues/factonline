@@ -85,7 +85,7 @@
 
                     
                 </div>
-                
+                <div class="row top-buffer">{{ $clientes->links() }}</div>
             </div>
         </div>
     </div>
