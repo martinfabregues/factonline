@@ -5,6 +5,7 @@
     <div id="notif-group" class="tabbed_notifications"></div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script src="{{ asset('assets/theme/js/bootstrap.min.js') }}"></script>
 
 <!-- chart js -->
@@ -24,5 +25,7 @@
 
 <!--Select2-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 
 @yield('scripts')

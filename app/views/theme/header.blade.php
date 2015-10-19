@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentallela Alela! | </title>
+    <title>Factura Electronica</title>
 
     <!-- Bootstrap core CSS -->
 
@@ -23,6 +23,9 @@
     <!--<link href="{{ asset('assets/css/select2-bootstrap.css') }}" rel="stylesheet" type="text/css"/>-->
 
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    
     <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->

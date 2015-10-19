@@ -83,7 +83,7 @@
 
                     <div class="col-md-3">
                         {{ Form::label('fecha', 'Fecha Emisión') }}
-                        {{ Form::text('fecha', Input::old('fecha'), array('id' => 'datepicker', 'class' => 'form-control', 'Placeholder' => 'Fecha')) }}
+                        {{ Form::text('fecha', Input::old('fecha'), array('id' => 'fecha', 'class' => 'date-picker form-control', 'Placeholder' => 'Fecha')) }}
                     </div>
                              
                                     
@@ -157,7 +157,7 @@
                 </tbody>
             </table>
                 <span class="row top-buffer">
-                    <a href="#" class="btn btn-primary btn-sm addline" id="addline">+ Agregar Item</a>
+                    <a href="#" class="btn btn-primary btn-sm addline" id="addline"><span class="glyphicon glyphicon-plus"></span> Agregar Item</a>
                 </span>
             
             </div>
@@ -202,18 +202,12 @@
                 </thead>
                 <tbody>                                  
                     <tr>
-                        <td></td> 
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="btn btn-xs btn-danger" href=""><span class="glyphicon glyphicon-remove"></span></a>
-                        </td>
+                 
                     </tr>
                 </tbody>
             </table>
                 <span class="row top-buffer">
-                    <a href="" class="btn btn-primary btn-sm">+ Agregar Tributo</a>
+                    <a href="" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Agregar Tributo</a>
                 </span>
             </div>
             </div>
@@ -378,7 +372,18 @@ $('.select2-cliente').select2({
 
 });
 
+
+//DATEPICKER
+$('input[name="fecha"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true
+
+});
+
+ 
+
 </script>
+
 @stop
 
 

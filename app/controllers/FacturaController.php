@@ -35,6 +35,11 @@ class FacturaController extends \BaseController {
                     ->lists('nombrecompleto', 'id');
             $productos = Producto::lists('nombre', 'id');
             
+            $wsaa = new Afip\WSAA();
+            $wsfe = new Afip\WSFEV1();
+            
+            $tributos = $wsfe->FindTiposTributo();
+                        
             return View::make('pages.facturas.create')
                     ->with('tiposdocumento', $tiposdocumento)
                     ->with('condicionesiva', $condicionesiva)
