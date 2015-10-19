@@ -19,12 +19,12 @@ Route::get('/', function()
 //Route::resource('puntosventa', 'PuntoVentaController');
 //Route::resource('clientes', 'ClienteController');
 //Route::resource('proveedores', 'ProveedorController');
-Route::resource('facturas', 'FacturaController');
+//Route::resource('facturas', 'FacturaController');
 
 //ROUTES CLIENTESCONTROLLER
 Route::get('clientes', 'ClienteController@index');
 Route::get('clientes/create', 'ClienteController@create');
-Route::post('store', 'ClienteController@store');
+Route::post('clientes/store', 'ClienteController@store');
 Route::get('clientes/findcliente', 'ClienteController@findcliente');
 
 
@@ -32,16 +32,22 @@ Route::get('clientes/findcliente', 'ClienteController@findcliente');
 Route::get('productos', 'ProductoController@index');
 Route::get('productos/findproducto', 'ProductoController@findproducto');
 Route::get('productos/create', 'ProductoController@create');
-Route::post('store', 'ProductoController@store');
+Route::post('productos/store', 'ProductoController@store');
 
 
 //ROUTES PROVEEDORCONTROLLER
 Route::get('proveedores', 'ProveedorController@index');
 Route::get('proveedores/create', 'ProveedorController@create');
-Route::post('store', 'ProveedorController@store');
+Route::post('proveedores/store', 'ProveedorController@store');
 
 
-//ROUTES PUNTOSDEVENTA
+//ROUTES PUNTOSDEVENTACONTROLLER
 Route::get('puntosventa', 'PuntoVentaController@index');
 Route::get('puntosventa/create', 'PuntoVentaController@create');
-Route::post('store', 'PuntoVentaController@store');
+Route::post('puntosventa/store', 'PuntoVentaController@store');
+
+
+//ROUTES FACTURASCONTROLLER
+Route::get('facturas', 'FacturaController@index');
+Route::get('facturas/create', 'FacturaController@create');
+Route::post('facturas/store', 'FacturaController@store');

@@ -21,6 +21,13 @@
 
 <div class="clearfix"></div>
 
+<ul>
+@foreach($errors->all() as $error)
+    <div class="alert alert-danger fade in" role="alert">{{ $error }}</div>
+@endforeach
+</ul>
+
+
 <div class="row">
 
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -47,7 +54,7 @@
                 
             </div>
             <div class="x-content">
-
+                  {{ Form::open(array('action' => 'FacturaController@store')) }}
                  <div class="row top-buffer">
                     <div class="col-md-3">
                         {{ Form::label('tipocomprobante_id', 'Tipo Comprobante') }}
@@ -80,6 +87,12 @@
 
                     </div>
 
+                     <div class="col-md-4">                                    
+                                        
+                        {{ Form::label('documento', 'Documento') }}
+                        {{ Form::text('documento', Input::old('documento'), array('id' => 'documento', 'class' => 'form-control', 'Placeholder' => 'Documento')) }}
+
+                    </div>
 
                     <div class="col-md-3">
                         {{ Form::label('fecha', 'Fecha Emisión') }}
@@ -132,14 +145,14 @@
                     </tr>
                     <tr>
                         <td>
-                            {{ Form::text('cantidad[]', '1', array('id' => 'cantidad0', 'class' => 'form-control', 'placeholder' => 'Cant.', 'type' => 'number', 'value' => '1')) }}
+                            {{ Form::text('cantidad[]', 1, array('id' => 'cantidad0', 'class' => 'form-control cantidad', 'placeholder' => 'Cant.', 'type' => 'number', 'value' => '1')) }}
                         </td>
                         <td>
                             <!--<select id="producto_id0" name="producto_id[]" placeholder="Selecciona un Producto" class="select2-select" style="width:100%; height:100%;"></select>-->
                             <select id="producto_id0" name="producto_id[]" class="select2-select form-control select2_single" style="width:100%;"></select>
                         </td>
                         <td>
-                           {{ Form::text('importe_unitario[]', '0.00', array('id' => 'importe_unitario0', 'class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
+                           {{ Form::text('importe_unitario[]', '0.00', array('id' => 'importe_unitario0', 'class' => 'form-control importe_unitario', 'placeholder' => 'Imp. Unit.')) }}
                         </td>
                         <td>
                             {{ Form::select('alicuota_id[]', $alicuotas, null, array('id' => 'alicuota_id0', 'class' => 'select2-alicuota', 'style' => '' )) }}
@@ -148,10 +161,10 @@
                             {{ Form::text('importe_iva[]', '0.00', array('id' => 'importe_iva0', 'class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}
                         </td>
                         <td>
-                            {{ Form::text('total_producto[]', '0.00', array('id' => 'total_producto0', 'class' => 'form-control', 'placeholder' => 'Total')) }}
+                            {{ Form::text('total_producto[]', '0.00', array('id' => 'total_producto0', 'class' => 'form-control total_producto', 'placeholder' => 'Total')) }}
                         </td>
                         <td>
-                            <a class="btn btn-xs btn-danger" href=""><span class="glyphicon glyphicon-remove"></span></a>                            
+                            <a class="btn btn-xs btn-danger" href=""><span class="glyphicon glyphicon-trash"></span></a>                            
                         </td>
                     </tr>
                 </tbody>
@@ -214,17 +227,48 @@
         </div>
         </div>
         
-        <div class="row top-buffer">            
-             <div class="col-md-6"> 
-                {{ Form::label('observaciones', 'Observaciones') }}
-                {{ Form::textarea('observaciones', Input::old('observaciones'), array('class' => 'form-control', 'rows' => '4', 'Placeholder' => 'Observaciones')) }}
-             </div> 
-        </div>
+       
         
         
         <div class="row top-buffer">
             
-            <div class="col-md-3">
+            
+                      
+             <div class="col-md-6"> 
+                {{ Form::label('observaciones', 'Observaciones') }}
+                {{ Form::textarea('observaciones', Input::old('observaciones'), array('class' => 'form-control', 'rows' => '4', 'Placeholder' => 'Observaciones')) }}
+             </div> 
+            
+            
+            <div class="col-md-6">
+            <table class="table table-hover">
+                <thead>
+                    <tr role="headings">
+                        <th class="column-title">Concepto</th>
+                        <th class="column-title">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>{{ Form::text('subtotal', Input::old('subtotal'), array('class' => 'form-control', 'placeholder' => '0.00')) }}</td>
+                    </tr>
+                    <tr>
+                        <td>IVA:</td>
+                        <td>{{ Form::text('iva', Input::old('iva'), array('class' => 'form-control', 'placeholder' => '0.00')) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tributos:</td>
+                        <td>{{ Form::text('tributos', Input::old('tributos'), array('class' => 'form-control', 'placeholder' => '0.00')) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td>{{ Form::text('total', Input::old('total'), array('class' => 'form-control', 'placeholder' => '0.00')) }} </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+<!--            <div class="col-md-3">
                 {{ Form::label('subtotal', 'Subtotal') }}
                 <div class="input-group">                
                     <div class="input-group-addon">$</div>                
@@ -258,7 +302,7 @@
                 </div>
             </div> 
                 
-        </div>
+        </div>-->
         
         <div class="row">
             
@@ -320,7 +364,7 @@ $(document).on('click', '.addline', function () {
             var i = id.substr(id.length - 1);
             var prefix = id.substr(0, (id.length - 1));
             el.attr('id', prefix + (+i + 1));
-//            el.attr('name', prefix + (+i + 1));
+
         }
     });
     
@@ -346,7 +390,7 @@ $(document).on('click', '.addline', function () {
 
     });
 
-    
+
 });
 
 
@@ -380,7 +424,39 @@ $('input[name="fecha"]').daterangepicker({
 
 });
 
- 
+
+////CHANGE CANTIDAD
+//$('.cantidad').bind('input propertychange', function() {
+// 
+//    var cantidad = Number($('.cantidad').val());
+//    var importe = Number($('.importe_unitario').val());
+//     if(cantidad !== 0)
+//     {
+//         if(importe !== 0)
+//         {
+//             var total = cantidad * importe;
+//             $('.total_producto').val(total);
+//         }
+//     }
+//
+//});
+//
+////CHANGE CANTIDAD
+//$('.importe_unitario').bind('input propertychange', function() {
+// 
+//    var importe = Number($('.importe_unitario').val());
+//    var cantidad = Number($('.cantidad').val());
+//    
+//     if(importe !== 0)
+//     {
+//         if(cantidad !== 0)
+//         {
+//             var total = cantidad * importe;
+//             $('.total_producto').val(total);
+//         }
+//     }
+//
+//});
 
 </script>
 
