@@ -695,7 +695,7 @@ a:focus {
 }
 
 body.nav-md ul.nav.child_menu li:before {
-    background: #425668;
+    background: #fff;
     bottom: auto;
     content: "";
     height: 8px;

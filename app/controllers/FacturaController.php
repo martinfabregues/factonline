@@ -165,7 +165,7 @@ class FacturaController extends \BaseController {
                
             
             //si la factura fue autorizada por AFIP la persisto en la base de datos  
-            if($estado == "A")
+            if($estado == "A" && strlen($cae) != 0)
             {                           
                 $factura = new Factura;
                
@@ -212,8 +212,11 @@ class FacturaController extends \BaseController {
             }
             else
             {
-                Session::flash('message', $response->FECAESolicitarResult->Errors);
-                return Redirect::to('facturas');
+//                Session::flash('message', $response->FECAESolicitarResult->Errors);
+//                return Redirect::to('facturas/create');
+                return Redirect::to('facturas/create')
+                        ->with($erroresafip, $response->FECAESolicitarResult->Errors);
+                
             }
 //            
             }            
