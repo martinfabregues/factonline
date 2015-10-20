@@ -86,14 +86,16 @@ class FacturaController extends \BaseController {
             ->withErrors($validator);
         } 
         else{
-           
+           echo 'no hay errores';            
             $wsaa = new Afip\WSAA();
             $wsfe = new Afip\WSFEV1();
                        
-            $PtoVta = PuntoVenta::findOrFail(Input::get('puntoventa_id'));
+            $PtoVta = PuntoVenta::findOrFail(Input::get('puntoventa_id'));            
             $CbteTipo = TipoComprobante::findOrFail(Input::get('tipocomprobante_id'));
             $Concepto = Concepto::findOrFail(Input::get('concepto_id'));
-            $DocTipo = TipoDocumento::findOrFail(Input::get('tipodocumento_id'));
+            $Cliente = Cliente::findOrFail(Input::get('cliente_id'));
+
+            $DocTipo = $Cliente->TipoDocumento->codigoafip;
             $DocNro = Input::get('documento');
             $CbteFch = date('Ymd');
             $ImpTotal = Input::get('total');
@@ -113,6 +115,8 @@ class FacturaController extends \BaseController {
                        
             //Obtengo el detalle de la factura
             $input = Input::all();
+
+            
             $detalle_array = array();
             foreach($input['producto_id'] as $key => $value) {
                 $detalle_array[$key]['producto_id'] = $value;
@@ -137,24 +141,21 @@ class FacturaController extends \BaseController {
             foreach($input['total_producto'] as $key => $value){
                 $detalle_array[$key]['total_producto'] = $value;                
             }
-            
-            
-//            
+                              
             //Calculo las alicuotas de iva
             
             //si es factura b
-            if($CbteTipo == 1)
-            {
-                
-            }
+       
             
             $Iva = array('AlicIva' => array('Id' => 3, 'BaseImp' => $ImpNeto, 'Importe' => 0));
             
             $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
             $prox_nro = ($ult_nro->FECompUltimoAutorizadoResult->CbteNro) + 1;
+            
+//            echo $prox_nro;
                        
             $response = $wsfe->CAESolicitar(1, $PtoVta->codigoafip, $CbteTipo->codigoafip, $Concepto->codigoafip,
-                        $DocTipo->codigoafip, $DocNro, $prox_nro, $prox_nro, $CbteFch,
+                        $DocTipo, $DocNro, $prox_nro, $prox_nro, $CbteFch,
                         $ImpTotal, $ImpTotConc, $ImpNeto, $ImpOpEx, $ImpTrib, $ImpIVA, $FchServDesde, $FchServHasta, $FchVtoPago,
                         $MonId, $MonCotiz, $CbtesAsoc, $Tributos, $Iva, $Opcionales);
 
@@ -162,14 +163,13 @@ class FacturaController extends \BaseController {
             $cae_vencimiento = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAEFchVto;
             $estado = $response->FECAESolicitarResult->FeCabResp->Resultado;              
                
-//                        
+            
             //si la factura fue autorizada por AFIP la persisto en la base de datos  
             if($estado == "A")
             {                           
                 $factura = new Factura;
                
-                $factura->fecha = Input::get('fecha');
-                           
+                $factura->fecha = Input::get('fecha');                      
                 $factura->numerofactura = $prox_nro;
                 $factura->tipocomprobante_id = Input::get('tipocomprobante_id');
                 $factura->concepto_id = Input::get('concepto_id');
@@ -209,7 +209,13 @@ class FacturaController extends \BaseController {
                             
                 Session::flash('message', 'Los datos se registraron correctamente.');
                 return Redirect::to('facturas');
-                }
+            }
+            else
+            {
+                Session::flash('message', $response->FECAESolicitarResult->Errors);
+                return Redirect::to('facturas');
+            }
+//            
             }            
 //
                

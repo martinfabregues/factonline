@@ -10,6 +10,8 @@ class TipoDocumento extends Eloquent {
 	protected $table = 'tiposdocumento';
 
 	protected $guarded = array('id');	
+        
+        protected $fillable = array('tipo_documento', 'codigoafip', 'activo');
 	
 	public $timestamps = false;
 }

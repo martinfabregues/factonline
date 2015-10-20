@@ -15,4 +15,9 @@ class Cliente extends Eloquent {
 	'direccion', 'numero', 'piso', 'departamento', 'barrio', 'telefono', 'email', 'activo');
 	
 	public $timestamps = false;
+        
+        public function TipoDocumento()
+        {
+            return $this->belongsTo('TipoDocumento', 'tipodocumento_id', 'id');
+        }
 }

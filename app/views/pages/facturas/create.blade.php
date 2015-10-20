@@ -345,7 +345,9 @@ $('.select2-select').select2({
     });
 
 //CLONO ALICUOTA SELECT
-$('.select2-alicuota').select2();
+$('.select2-alicuota').select2({
+    placeholder: "%"
+});
 
 
  //CLONAR FILA DE TABLA Y BINDEAR FUNCION DE BUSQUEDA EN SELECTS   
@@ -367,7 +369,9 @@ $(document).on('click', '.addline', function () {
 
         }
     });
-    
+        
+    $clone.find('input:text').val('').end();
+
     $tr.closest('tbody').append($clone);
     
     $('.select2-select').select2({
@@ -387,9 +391,10 @@ $(document).on('click', '.addline', function () {
         },
         cache: true
     }
+    
 
     });
-
+    
 
 });
 
@@ -419,6 +424,9 @@ $('.select2-cliente').select2({
 
 //DATEPICKER
 $('input[name="fecha"]').daterangepicker({
+    locale: {
+      format: 'YYYY-MM-DD'
+    },
     singleDatePicker: true,
     showDropdowns: true
 

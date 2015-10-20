@@ -14,4 +14,6 @@ class TipoComprobante extends Eloquent {
 	
 	
 	public $timestamps = false;
+        
+
 }
