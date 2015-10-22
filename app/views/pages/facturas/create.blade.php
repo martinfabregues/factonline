@@ -31,7 +31,7 @@
 <div class="row">
 
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel" style="height:250px;">
+        <div class="x_panel" style="height:100%;">
             <div class="x_title">
                 <h2>Datos del Comprobante</h2>
                 <ul class="nav navbar-right panel_toolbox">
@@ -99,40 +99,8 @@
                         {{ Form::text('fecha', Input::old('fecha'), array('id' => 'fecha', 'class' => 'date-picker form-control', 'Placeholder' => 'Fecha')) }}
                     </div>
                              
-                                    
-                 </div>
-                
-            </div>
-        </div> <!--END PANEL-->
-               
-                
-        <div class='row'>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-             <div class="x_panel panel-detalle" style="height:250px;">
-            <div class="x_title">
-                <h2>Detalle</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Settings 1</a>
-                            </li>
-                            <li><a href="#">Settings 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
-                
-                <div class="clearfix"></div>
-                
-            </div>
-            <div class="x-content">
-                
-            <table class="table table-hover det">
+                    <span class="row top-buffer">     
+                       <table class="table table-hover det">
                 <tbody>
                     <tr>
                         <th class="col-md-1">Cantidad</th>
@@ -145,14 +113,14 @@
                     </tr>
                     <tr>
                         <td>
-                            {{ Form::text('cantidad[]', 1, array('id' => 'cantidad0', 'class' => 'form-control cantidad', 'placeholder' => 'Cant.', 'type' => 'number', 'value' => '1')) }}
+                            {{ Form::text('cantidad[]', 1, array('id' => 'cantidad0', 'class' => 'form-control', 'placeholder' => 'Cant.', 'type' => 'number', 'value' => '1')) }}
                         </td>
                         <td>
                             <!--<select id="producto_id0" name="producto_id[]" placeholder="Selecciona un Producto" class="select2-select" style="width:100%; height:100%;"></select>-->
-                            <select id="producto_id0" name="producto_id[]" class="select2-select form-control select2_single" style="width:100%;"></select>
+                            <select id="producto_id0" name="producto_id[]" class="select2-select form-control" style="width:100%;"></select>
                         </td>
                         <td>
-                           {{ Form::text('importe_unitario[]', '0.00', array('id' => 'importe_unitario0', 'class' => 'form-control importe_unitario', 'placeholder' => 'Imp. Unit.')) }}
+                           {{ Form::text('importe_unitario[]', '0.00', array('id' => 'importe_unitario0', 'class' => 'form-control', 'placeholder' => 'Imp. Unit.')) }}
                         </td>
                         <td>
                             {{ Form::select('alicuota_id[]', $alicuotas, null, array('id' => 'alicuota_id0', 'class' => 'select2-alicuota', 'style' => '' )) }}
@@ -161,7 +129,7 @@
                             {{ Form::text('importe_iva[]', '0.00', array('id' => 'importe_iva0', 'class' => 'form-control', 'placeholder' => 'Imp. IVA')) }}
                         </td>
                         <td>
-                            {{ Form::text('total_producto[]', '0.00', array('id' => 'total_producto0', 'class' => 'form-control total_producto', 'placeholder' => 'Total')) }}
+                            {{ Form::text('total_producto[]', '0.00', array('id' => 'total_producto0', 'class' => 'form-control', 'placeholder' => 'Total')) }}
                         </td>
                         <td>
                             <a class="btn btn-xs btn-danger" href=""><span class="glyphicon glyphicon-trash"></span></a>                            
@@ -172,38 +140,9 @@
                 <span class="row top-buffer">
                     <a href="#" class="btn btn-primary btn-sm addline" id="addline"><span class="glyphicon glyphicon-plus"></span> Agregar Item</a>
                 </span>
-            
-            </div>
-             </div>
-        </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel" style="height:300px;">
-            <div class="x_title">
-                <h2>Tributos</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Settings 1</a>
-                            </li>
-                            <li><a href="#">Settings 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
-                
-                <div class="clearfix"></div>
-                
-            </div>
-            <div class="x-content">
-             <table class="table table-hover tributos" id="tributos">
+                    
+                    </span>
+                     <table class="table table-hover tributos" id="tributos">
                 <thead>
                     <tr role="row">
                         <th class="col-sm-5">Tributo</th>
@@ -222,15 +161,9 @@
                 <span class="row top-buffer">
                     <a href="" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span> Agregar Tributo</a>
                 </span>
-            </div>
-            </div>
-        </div>
-        </div>
-        
-       
-        
-        
-        <div class="row top-buffer">
+                    
+                    
+                    <div class="row top-buffer">
             
             
                       
@@ -311,11 +244,25 @@
                 {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
             </div>
 
-            {{ Form::close() }}
+            
         </div>
+                 {{ Form::close() }}    
+                    
+                 </div>
+                
+            </div>
+        </div> <!--END PANEL-->
+               
+                
+       
+        
+        
+        
                 
     </div>
 </div>
+</div>
+    
 @endsection
 
 
@@ -324,7 +271,7 @@
 
 
 //FUNCION DE BUSQUEDA EN EL SELECT DE LA PRIMERA FILA
-$('.select2-select').select2({
+$('.select2-select').select2({        
         placeholder: "Seleccione un Producto",
         ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
             url: "{{ URL::action('ProductoController@findproducto') }}",
@@ -356,7 +303,8 @@ $(document).on('click', '.addline', function () {
     var $lastTr = $tr.closest('.det').find('tr:last');
 
     $lastTr.find('.select2-select').select2('destroy');
-
+    $lastTr.find('.select2-alicuota').select2('destroy');
+    
     var $clone = $lastTr.clone();
 
     $clone.find('td').each(function() {
@@ -366,14 +314,16 @@ $(document).on('click', '.addline', function () {
             var i = id.substr(id.length - 1);
             var prefix = id.substr(0, (id.length - 1));
             el.attr('id', prefix + (+i + 1));
-
+            el.attr('name');
         }
     });
         
-    $clone.find('input:text').val('').end();
+//    $clone.find('input:text').val('').end();
+
+    
 
     $tr.closest('tbody').append($clone);
-    
+    $('.select2-alicuota').select2(); 
     $('.select2-select').select2({
         placeholder: "Seleccione un Producto",
         ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
@@ -391,11 +341,9 @@ $(document).on('click', '.addline', function () {
         },
         cache: true
     }
-    
-
     });
     
-
+    
 });
 
 
