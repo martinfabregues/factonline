@@ -96,7 +96,7 @@ class FacturaController extends \BaseController {
             $Cliente = Cliente::findOrFail(Input::get('cliente_id'));
 
             $DocTipo = $Cliente->TipoDocumento->codigoafip;
-            $DocNro = Input::get('documento');
+            $DocNro = (double)$Cliente->documento;
             $CbteFch = date('Ymd');
             $ImpTotal = Input::get('total');
             $ImpTotConc = 0;
@@ -130,7 +130,8 @@ class FacturaController extends \BaseController {
             }
             
             foreach($input['alicuota_id'] as $key => $value){
-                $detalle_array[$key]['alicuota_id'] = $value;                
+                $alic = AlicuotaIva::find($value);
+                $detalle_array[$key]['alicuota_id'] = $alic->codigoafip;                
             }
             
             foreach($input['importe_iva'] as $key => $value){
@@ -141,107 +142,93 @@ class FacturaController extends \BaseController {
                 $detalle_array[$key]['total_producto'] = $value;                
             }
             
-            print_r($detalle_array);
+       
             //Calculo las alicuotas de iva
             
             $Iva = array();
-            
-            //si es factura b
-            if($CbteTipo->codigoafip == 1)
-            {
-     
-                $key = 0;
-                foreach ($detalle_array as $item) {
-                    $key = $item['alicuota_id'];
-                    if (!array_key_exists($key, $Iva)) {
-                        $Iva[$key] = array(
-                            'Id' => $item['alicuota_id'],
-                            'BaseImp' => $item['importe_unitario'],
-                            'Importe' => $item['importe_iva'],
-                        );
-                    } else {
-                        $Iva[$key]['BaseImp'] = $Iva[$key]['BaseImp'] + $item['importe_unitario'];
-                        $Iva[$key]['Importe'] = $Iva[$key]['Importe'] + $item['importe_iva'];
-                    }
-                    $key++;
-                }
+            //recorro el array para armar el array de iva
+            $key = 0;
+            foreach ($detalle_array as $item) {
+                
+                $AlicIva = new stdClass;
+                $AlicIva->Id = $item['alicuota_id'];
+                $AlicIva->BaseImp = $item['importe_unitario'];
+                $AlicIva->Importe = $item['importe_iva'];
+                
+                $Iva[] = $AlicIva;
+            }
  
+            
+            $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
+            $prox_nro = ($ult_nro->FECompUltimoAutorizadoResult->CbteNro) + 1;
+            
+            $response = $wsfe->CAESolicitar(1, $PtoVta->codigoafip, $CbteTipo->codigoafip, $Concepto->codigoafip,
+                        $DocTipo, $DocNro, $prox_nro, $prox_nro, $CbteFch,
+                        $ImpTotal, $ImpTotConc, $ImpNeto, $ImpOpEx, $ImpTrib, $ImpIVA, $FchServDesde, $FchServHasta, $FchVtoPago,
+                        $MonId, $MonCotiz, $CbtesAsoc, $Tributos, $Iva, $Opcionales);
+
+            print_r($response);
+            
+            $cae = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAE;                     
+            $cae_vencimiento = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAEFchVto;
+            $estado = $response->FECAESolicitarResult->FeCabResp->Resultado;              
+               
+            
+            //si la factura fue autorizada por AFIP la persisto en la base de datos  
+            if($estado == "A" && strlen($cae) != 0)
+            {                           
+                $factura = new Factura;
+               
+                $factura->fecha = Input::get('fecha');                      
+                $factura->numerofactura = $prox_nro;
+                $factura->tipocomprobante_id = Input::get('tipocomprobante_id');
+                $factura->concepto_id = Input::get('concepto_id');
+                $factura->formapago_id = Input::get('formapago_id');
+                $factura->puntoventa_id = Input::get('puntoventa_id');
+                $factura->cliente_id = $Cliente->id;
+                $factura->subtotal = Input::get('subtotal');
+                $factura->iva = Input::get('iva');
+                $factura->tributos = Input::get('tributos');
+                $factura->total = Input::get('total');
+                $factura->cae = $cae;                                                     
+                $factura->estado = $estado;
+                $factura->observaciones = Input::get('observaciones');
+                           
+                $date2 = DateTime::createFromFormat('Ymd', $cae_vencimiento);                           
+                $date2 = $date2->format('d/m/Y');
+                $date2 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$date2)));
+                           
+                $factura->cae_vencimiento = $date2;
+                    
+                //guardo la factura
+                $factura->save();
+              
+                //guardo el detalle de factura                         
+                foreach($detalle_array as $row)
+                {        
+                    $det = new FacturaDetalle;
+                    $det->producto_id = $row['producto_id'];
+                    $det->cantidad = $row['cantidad'];
+                    $det->importe = $row['importe_unitario'];
+                    $det->alicuota_id = $row['alicuota_id'];
+                    $det->importe_iva = $row['importe_iva'];
+                    $det->total = $row['total_producto'];
+                                
+                    $factura->detalle()->save($det);                                
+                }
+                            
+                Session::flash('message', 'Los datos se registraron correctamente.');
+                return Redirect::to('facturas');
+            }
+            else
+            {
+//                Session::flash('message', $response->FECAESolicitarResult->Errors);
+//                return Redirect::to('facturas/create');
+                return Redirect::to('facturas/create')
+                        ->with($erroresafip, $response->FECAESolicitarResult->Errors);
+                
             }
             
-            print_r($Iva);
-            
-//            $Iva = array('AlicIva' => array('Id' => 3, 'BaseImp' => $ImpNeto, 'Importe' => 0));
-//            
-//            $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
-//            $prox_nro = ($ult_nro->FECompUltimoAutorizadoResult->CbteNro) + 1;
-//            
-////            echo $prox_nro;
-//                       
-//            $response = $wsfe->CAESolicitar(1, $PtoVta->codigoafip, $CbteTipo->codigoafip, $Concepto->codigoafip,
-//                        $DocTipo, $DocNro, $prox_nro, $prox_nro, $CbteFch,
-//                        $ImpTotal, $ImpTotConc, $ImpNeto, $ImpOpEx, $ImpTrib, $ImpIVA, $FchServDesde, $FchServHasta, $FchVtoPago,
-//                        $MonId, $MonCotiz, $CbtesAsoc, $Tributos, $Iva, $Opcionales);
-//
-//            $cae = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAE;                     
-//            $cae_vencimiento = $response->FECAESolicitarResult->FeDetResp->FECAEDetResponse->CAEFchVto;
-//            $estado = $response->FECAESolicitarResult->FeCabResp->Resultado;              
-//               
-//            
-//            //si la factura fue autorizada por AFIP la persisto en la base de datos  
-//            if($estado == "A" && strlen($cae) != 0)
-//            {                           
-//                $factura = new Factura;
-//               
-//                $factura->fecha = Input::get('fecha');                      
-//                $factura->numerofactura = $prox_nro;
-//                $factura->tipocomprobante_id = Input::get('tipocomprobante_id');
-//                $factura->concepto_id = Input::get('concepto_id');
-//                $factura->formapago_id = Input::get('formapago_id');
-//                $factura->puntoventa_id = Input::get('puntoventa_id');
-//                $factura->cliente_id = 1;
-//                $factura->subtotal = Input::get('subtotal');
-//                $factura->iva = Input::get('iva');
-//                $factura->tributos = Input::get('tributos');
-//                $factura->total = Input::get('total');
-//                $factura->cae = $cae;                                                     
-//                $factura->estado = $estado;
-//                $factura->observaciones = Input::get('observaciones');
-//                           
-//                $date2 = DateTime::createFromFormat('Ymd', $cae_vencimiento);                           
-//                $date2 = $date2->format('d/m/Y');
-//                $date2 = date("Y-m-d H:i:s",strtotime(str_replace('/','-',$date2)));
-//                           
-//                $factura->cae_vencimiento = $date2;
-//                    
-//                //guardo la factura
-//                $factura->save();
-//              
-//                //guardo el detalle de factura                         
-//                foreach($detalle_array as $row)
-//                {        
-//                    $det = new FacturaDetalle;
-//                    $det->producto_id = $row['producto_id'];
-//                    $det->cantidad = $row['cantidad'];
-//                    $det->importe = $row['importe_unitario'];
-//                    $det->alicuota_id = $row['alicuota_id'];
-//                    $det->importe_iva = $row['importe_iva'];
-//                    $det->total = $row['total_producto'];
-//                                
-//                    $factura->detalle()->save($det);                                
-//                }
-//                            
-//                Session::flash('message', 'Los datos se registraron correctamente.');
-//                return Redirect::to('facturas');
-//            }
-//            else
-//            {
-////                Session::flash('message', $response->FECAESolicitarResult->Errors);
-////                return Redirect::to('facturas/create');
-//                return Redirect::to('facturas/create')
-//                        ->with($erroresafip, $response->FECAESolicitarResult->Errors);
-//                
-//            }
-//            
             }            
 //
                

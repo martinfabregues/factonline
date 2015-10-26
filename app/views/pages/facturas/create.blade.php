@@ -98,7 +98,8 @@
                         {{ Form::label('fecha', 'Fecha Emisión') }}
                         {{ Form::text('fecha', Input::old('fecha'), array('id' => 'fecha', 'class' => 'date-picker form-control', 'Placeholder' => 'Fecha')) }}
                     </div>
-                             
+                    <br></br>   
+                    <br></br>  
                     <span class="row top-buffer">     
                        <table class="table table-hover det">
                 <tbody>
