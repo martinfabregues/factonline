@@ -10,12 +10,11 @@ class FacturaController extends \BaseController {
 	 */
 	public function index()
 	{
-            $facturas = Factura::paginate(10);
+            $facturas = Factura::orderBy('fecha', 'desc')->paginate(10);
                
             return View::make('pages.facturas.list')
                     ->with('facturas', $facturas);
 	}
-
 
 	/**
 	 * Show the form for creating a new resource.
