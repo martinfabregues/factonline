@@ -143,21 +143,38 @@ class FacturaController extends \BaseController {
             }
             
        
-            //Calculo las alicuotas de iva
-            
-            $Iva = array();
-            //recorro el array para armar el array de iva
+            //Calculo las alicuotas de iva y las agrupo por id de alicuota
+
+            $groups = array();
             $key = 0;
             foreach ($detalle_array as $item) {
+                $key = $item['alicuota_id'];
+                if (!array_key_exists($key, $groups)) {
+                    $groups[$key] = array(
+                        'Id' => $item['alicuota_id'],
+                        'BaseImp' => $item['importe_unitario'],
+                        'Importe' => $item['importe_iva'],
+                );
+                } else {
+                    $groups[$key]['BaseImp'] = $groups[$key]['BaseImp'] + $item['importe_unitario'];
+                    $groups[$key]['Importe'] = $groups[$key]['Importe'] + $item['importe_iva'];
+                }
+                $key++;
+            }        
                 
+            //transformo el array a stdClass
+            $Iva = array();
+            foreach ($groups as $key => $row) {
+                
+              
                 $AlicIva = new stdClass;
-                $AlicIva->Id = $item['alicuota_id'];
-                $AlicIva->BaseImp = $item['importe_unitario'];
-                $AlicIva->Importe = $item['importe_iva'];
+                $AlicIva->Id = $row['Id'];
+                $AlicIva->BaseImp = $row['BaseImp'];
+                $AlicIva->Importe = $row['Importe'];
                 
                 $Iva[] = $AlicIva;
             }
- 
+            
             
             $ult_nro = $wsfe->FindUltimoCompAutorizado($PtoVta->codigoafip, $CbteTipo->codigoafip);
             $prox_nro = ($ult_nro->FECompUltimoAutorizadoResult->CbteNro) + 1;
@@ -222,11 +239,14 @@ class FacturaController extends \BaseController {
             }
             else
             {
-//                Session::flash('message', $response->FECAESolicitarResult->Errors);
-//                return Redirect::to('facturas/create');
-                return Redirect::to('facturas/create')
-                        ->with($erroresafip, $response->FECAESolicitarResult->Errors);
+                print_r($response);
                 
+                Session::flash('message', $response->FECAESolicitarResult->Errors);
+                echo Session::get('message');
+//                return Redirect::to('facturas/create');
+//                return Redirect::to('facturas/create')
+//                        ->with('erroresafip', $response->FECAESolicitarResult->Errors);
+//                
             }
             
             }            
