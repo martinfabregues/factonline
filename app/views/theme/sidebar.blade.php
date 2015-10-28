@@ -2,12 +2,12 @@
                 <div class="left_col scroll-view">
 
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="{{ url('/') }}" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+                        <a href="{{ url('/') }}" class=""><i class=""></i> <span> </span></a>
                     </div>
                     <div class="clearfix"></div>
 
                     <!-- menu prile quick info -->
-                    <div class="profile">
+<!--                    <div class="profile">
                         <div class="profile_pic">
                             <img src="assets/theme/images/img.jpg" alt="..." class="img-circle profile_img">
                         </div>
@@ -15,7 +15,7 @@
                             <span>Welcome,</span>
                             <h2>Anthony Fernando</h2>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- /menu prile quick info -->
 
                     <br />
@@ -59,7 +59,7 @@
                                         </li>                                        
                                         <li><a href="{{ url('/puntosventa') }}">Puntos de Venta</a>
                                         </li>                          
-                                        <li><a href="#">Usuarios</a>
+                                        <!--<li><a href="#">Usuarios</a>-->
                                         </li>                                        
                                     </ul>
                                 </li>

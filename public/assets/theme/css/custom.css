@@ -215,7 +215,7 @@ body.nav-md .container.body .right_col {
 .nav_title {
     width: 230px;
     float: left;
-    background: #101010;
+    background: #232323;
     border-radius: 0;
     height: 57px;
 }
@@ -370,7 +370,7 @@ dark,
 
 body {
     color: #73879C;
-    background: #101010;
+    background: #232323;
     /*#ECF0F1; #FCFCFC*/
     
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;

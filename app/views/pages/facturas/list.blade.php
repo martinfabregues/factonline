@@ -78,8 +78,7 @@
                                 <td>{{ $value->total }}</td>
                                 <td>{{ $value->cae }}</td>
                                 <td>{{ $value->cae_vencimiento->format('d-m-Y') }}</td>
-                                <td>
-                                    <a class="btn btn-xs btn-default" href="{{ URL::to('facturas/' . $value->id . '/edit') }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <td>                                    
                                     <a class="btn btn-xs btn-danger" href="{{ URL::to('facturas/' . $value->id . '/edit') }}"><span class="glyphicon glyphicon-remove"></span></a>
                                     <a class="btn btn-xs btn-info" href="{{ URL::to('facturas/' . $value->id . '/edit') }}"><span class="glyphicon glyphicon-print"></span></a>
                                 </td>
