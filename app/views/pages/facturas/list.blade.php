@@ -80,7 +80,7 @@
                                 <td>{{ $value->cae_vencimiento->format('d-m-Y') }}</td>
                                 <td>                                    
                                     <a class="btn btn-xs btn-danger" href="{{ URL::to('facturas/' . $value->id . '/edit') }}"><span class="glyphicon glyphicon-remove"></span></a>
-                                    <a class="btn btn-xs btn-info" href="{{ URL::to('facturas/' . $value->id . '/edit') }}"><span class="glyphicon glyphicon-print"></span></a>
+                                    <a class="btn btn-xs btn-info" href="{{ URL::to('facturas/' . $value->id . '/imprimir') }}"><span class="glyphicon glyphicon-print"></span></a>
                                 </td>
                             </tr>
                         @endforeach

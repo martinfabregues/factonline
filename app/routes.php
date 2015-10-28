@@ -51,3 +51,4 @@ Route::post('puntosventa/store', 'PuntoVentaController@store');
 Route::get('facturas', 'FacturaController@index');
 Route::get('facturas/create', 'FacturaController@create');
 Route::post('facturas/store', 'FacturaController@store');
+Route::get('facturas/{id}/imprimir', 'FacturaController@imprimir');

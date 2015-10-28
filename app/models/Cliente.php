@@ -20,4 +20,9 @@ class Cliente extends Eloquent {
         {
             return $this->belongsTo('TipoDocumento', 'tipodocumento_id', 'id');
         }
+        
+        public function CondicionIva()
+        {
+            return $this->belongsTo('CondicionIva', 'condicioniva_id', 'id');
+        }
 }
