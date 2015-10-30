@@ -1,0 +1,26 @@
+#columnaizquierda{
+    float:left;
+    background-color: #cc6600;
+    width: 44%;
+}
+
+#columnaderecha{
+    background-color: #000FFF;
+    float:right;
+    width:44%;
+}
+
+body{
+
+}
+
+
+#datoscliente{
+    background-color: #008d4c;
+    width:88%;
+}
+
+#detalles{
+    width:88%;
+    
+}

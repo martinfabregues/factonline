@@ -20,4 +20,14 @@ class FacturaDetalle extends Eloquent {
         {
             return $this->belongsTo('Factura');
         }
+        
+        public function producto()
+        {
+            return $this->belongsTo('Producto');
+        }
+        
+        public function alicuota()
+        {
+            return $this->belongsTo('AlicuotaIva');
+        }
 }
