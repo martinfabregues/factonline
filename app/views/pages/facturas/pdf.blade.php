@@ -15,12 +15,15 @@
 
 body{
     font-family: "Arial";
-    font-size: 14px;
-    width: 98%;
+    font-size: 13px;
+    width: 100%;
 }
 
 #datoscliente{
     clear:both;
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
 }
 
 #detalles{
@@ -50,6 +53,11 @@ td{
     border-color: #666666;
     background-color: #ffffff;
 }
+
+#totales{
+    padding-top: 500px;
+}
+
     </style>
 </head>
 <body>
@@ -66,7 +74,7 @@ td{
 
 <!-- DIV COL-DER -->
 <div id="columnaderecha">
-<div>FACTURA</div>
+<div>{{ $data->TipoComprobante->tipo_comprobante }}</div>
 <div>Punto Venta: {{ $data->PuntoVenta->codigoafip }} </div>
 <div>Nro. Comprobante: {{ $data->numerofactura }} </div>
 <div>Fecha Emision: {{ $data->fecha }}</div>
@@ -123,6 +131,38 @@ td{
 </tbody>
 </table>
 </div> <!-- END DIV DETALLEs -->
+
+<div id="totales">
+    <table>
+<thead>
+<tr>
+    <th></th>
+    <th></th>	
+
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>Subtotal</td>
+	<td>{{ $data->total }}</td>             
+</tr>
+<tr>
+	<td>Iva</td>
+	<td>{{ $data->iva }}</td>             
+</tr>
+<tr>
+	<td>Tributos</td>
+	<td>{{ $data->tributos }}</td>             
+</tr>
+<tr>
+	<td>Total</td>
+	<td>{{ $data->total }}</td>             
+</tr>
+    </tbody>
+</table>
+    
+</div>
+
 
 <div class="footer">
     <div>CAE N°: {{ $data->cae }}</div>
